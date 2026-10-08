@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "secondary-fixed": "#e2e8f0",
+          "error-container": "#fee2e2",
+          "on-primary-container": "#0369a1",
+          "secondary-fixed-dim": "#cbd5e1",
+          "surface-container-highest": "#e2e8f0",
+          "surface-bright": "#faf8ff",
+          "surface-tint": "#7dd3fc",
+          "on-secondary": "#ffffff",
+          "on-surface": "#0f172a",
+          "inverse-surface": "#0f172a",
+          "on-secondary-container": "#54647a",
+          "secondary-container": "#d0e1fb",
+          "on-primary-fixed-variant": "#026aa2",
+          "on-tertiary-fixed": "#022c22",
+          "on-error-container": "#991b1b",
+          "primary-fixed-dim": "#7dd3fc",
+          "tertiary-fixed": "#6ffbbe",
+          "surface-container-high": "#e2e8f0",
+          "surface-container-low": "#f8fafc",
+          "primary": "#3ba4f6",
+          "on-error": "#ffffff",
+          "surface-container": "#f1f5f9",
+          "tertiary-fixed-dim": "#4edea3",
+          "primary-fixed": "#bae6fd",
+          "inverse-on-surface": "#f8fafc",
+          "on-secondary-fixed": "#0f172a",
+          "tertiary-container": "#d1fae5",
+          "background": "#ffffff",
+          "surface-variant": "#f1f5f9",
+          "outline": "#cbd5e1",
+          "surface-container-lowest": "#ffffff",
+          "surface-dim": "#f8fafc",
+          "primary-container": "#3ba4f6",
+          "on-tertiary-container": "#065f46",
+          "secondary": "#64748b",
+          "on-tertiary-fixed-variant": "#005236",
+          "on-tertiary": "#ffffff",
+          "on-primary-fixed": "#ffffff",
+          "inverse-primary": "#99cbff",
+          "outline-variant": "#e2e8f0",
+          "on-background": "#0f172a",
+          "on-surface-variant": "#475569",
+          "surface": "#ffffff",
+          "on-secondary-fixed-variant": "#38485d",
+          "tertiary": "#10b981",
+          "on-primary": "#ffffff",
+          "error": "#ef4444"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "space-sm": "0.5rem",
+          "space-2xl": "2rem",
+          "gutter": "1rem",
+          "space-xl": "1.5rem",
+          "space-md": "0.75rem",
+          "space-lg": "1rem",
+          "space-2xs": "0.125rem",
+          "gutter-compact": "0.5rem",
+          "space-xs": "0.25rem",
+          "margin-mobile": "0.75rem",
+          "margin": "1.5rem"
+        },
+        "fontFamily": {
+          "headline-lg": ["Inter"],
+          "body-lg": ["Inter"],
+          "code-lg": ["JetBrains Mono"],
+          "headline-md": ["Inter"],
+          "body-md": ["Inter"],
+          "code-sm": ["JetBrains Mono"],
+          "display-lg-mobile": ["Inter"],
+          "headline-sm": ["Inter"],
+          "body-sm": ["Inter"],
+          "display-lg": ["Inter"],
+          "label-caps": ["JetBrains Mono"],
+          "code-md": ["JetBrains Mono"]
+        },
+        "fontSize": {
+          "headline-lg": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+          "body-lg": ["15px", {"lineHeight": "22px", "fontWeight": "400"}],
+          "code-lg": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+          "headline-md": ["18px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+          "body-md": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+          "code-sm": ["11px", {"lineHeight": "15px", "fontWeight": "400"}],
+          "display-lg-mobile": ["26px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+          "headline-sm": ["15px", {"lineHeight": "20px", "letterSpacing": "-0.005em", "fontWeight": "600"}],
+          "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+          "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+          "label-caps": ["10px", {"lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "600"}],
+          "code-md": ["12px", {"lineHeight": "18px", "fontWeight": "400"}]
+        }
+      }
+    }
+  }
+</script></head><body class="bg-[#f8fafc] font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-80 bg-white border-r border-[#e2e8f0] shadow-sm z-50 flex flex-col justify-between overflow-y-auto px-space-lg py-space-lg"><div class="flex flex-col gap-space-lg"><div class="flex flex-col gap-space-xs"><div class="flex items-center gap-space-sm"><img alt="DeskReject Guard Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR4Zx_JsHxC-xobs8x8AFrnBC3vGmh5BXQCvCqGng9hdT14PtRW7Dp-7c7WZSAO7Mi6E6QL35G1AyC5_8SMr98Uqx8leEkSeIqqQt3cpeBKnYzMELPjk-oA5DN2Srgg_TqtbCI1A6MSpEot3Fey5bd-8Ad5ZTFmzwR9TXwo_8PDnGwu1ZshVo2kBKKRCAdY2pN47OUauemAxbt3Ppqsm9uNcE1i8KaZdYbExN_ZHI"/><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight font-bold">DeskReject Guard</span></div><p class="font-body-sm text-body-sm text-on-surface-variant">Catch it before the desk does.</p></div><div class="flex flex-col gap-space-xs"><label class="font-label-caps text-label-caps uppercase text-secondary font-semibold">Venue Preset</label><div class="flex flex-col gap-space-xs"><div class="flex items-center justify-between p-space-sm rounded-lg bg-[#f8fafc] border border-[#e2e8f0] cursor-pointer hover:bg-slate-100 transition-colors"><span class="font-body-sm text-body-sm text-on-surface truncate">NeurIPS-style double-blind (approximate, editable)</span><span class="material-symbols-outlined text-primary text-[18px]">expand_more</span></div></div><div class="flex items-center justify-between pt-space-2xs"><span class="font-body-sm text-body-sm text-secondary">Presets are approximate, not official rules.</span><span class="inline-flex items-center px-space-xs py-space-2xs rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-label-caps text-label-caps uppercase font-semibold">Anonymity: ON</span></div></div><div class="flex flex-col gap-space-sm"><label class="font-label-caps text-label-caps uppercase text-secondary font-semibold">Target Manuscript</label><div class="p-space-sm rounded-lg bg-[#f8fafc] border border-[#e2e8f0] flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><span class="material-symbols-outlined text-primary text-[20px]">description</span><div class="flex flex-col min-w-0"><span class="font-code-md text-code-md text-on-surface truncate font-medium">bad_paper.pdf</span><span class="font-body-sm text-body-sm text-secondary">4 pages • 2.4 MB</span></div></div><button class="text-secondary hover:text-error transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">close</span></button></div><div class="p-space-sm rounded-lg bg-white border border-dashed border-[#cbd5e1] flex items-center gap-space-sm cursor-pointer hover:bg-slate-50 transition-colors"><span class="material-symbols-outlined text-secondary text-[20px]">code</span><div class="flex flex-col"><span class="font-body-sm text-body-sm text-on-surface font-medium">Upload .tex archive</span><span class="font-body-sm text-body-sm text-secondary">Optional: enables ready-to-apply LaTeX patches</span></div></div></div><div class="p-space-sm rounded-lg bg-[#f8fafc] border border-[#e2e8f0] flex items-start justify-between gap-space-sm"><div class="flex flex-col gap-space-2xs"><span class="font-body-sm text-body-sm font-semibold text-on-surface">Bypass vision cache</span><span class="font-body-sm text-body-sm text-secondary">Forces fresh Gemma 4 calls so you can see multi-node fan-out.</span></div><input class="mt-1 h-4 w-4 rounded border-[#cbd5e1] text-[#3ba4f6] focus:ring-[#3ba4f6]" type="checkbox"/></div><div class="flex flex-col gap-space-xs"><div class="flex items-center justify-between"><span class="font-label-caps text-label-caps uppercase text-secondary font-semibold">Vision Cluster Telemetry</span><span class="font-code-sm text-code-sm text-emerald-600 font-semibold">4 Nodes</span></div><div class="flex flex-col gap-space-2xs bg-[#f8fafc] border border-[#e2e8f0] p-space-sm rounded-lg"><div class="flex items-center justify-between py-space-2xs"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-emerald-500"></span><span class="font-code-sm text-code-sm text-on-surface font-medium">Host</span><span class="font-code-sm text-code-sm text-secondary">(12b-it-qat)</span></div><span class="font-code-sm text-code-sm text-secondary">48 calls</span></div><div class="flex items-center justify-between py-space-2xs"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-emerald-500"></span><span class="font-code-sm text-code-sm text-on-surface font-medium">Worker 1</span><span class="font-code-sm text-code-sm text-secondary">(e4b-it)</span></div><span class="font-code-sm text-code-sm text-secondary">32 calls</span></div><div class="flex items-center justify-between py-space-2xs"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-emerald-500"></span><span class="font-code-sm text-code-sm text-on-surface font-medium">Worker 2</span><span class="font-code-sm text-code-sm text-secondary">(e4b-it)</span></div><span class="font-code-sm text-code-sm text-secondary">29 calls</span></div><div class="flex items-center justify-between py-space-2xs"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-rose-500"></span><span class="font-code-sm text-code-sm text-rose-600 font-medium">Worker 3</span><span class="font-code-sm text-code-sm text-rose-400">(failover)</span></div><span class="font-code-sm text-code-sm text-rose-600">0 calls</span></div></div></div><div class="flex flex-col gap-space-sm pt-space-xs"><button class="w-full py-space-sm px-space-md rounded-lg bg-[#3ba4f6] text-white font-headline-sm text-headline-sm font-semibold hover:bg-[#258de0] transition-colors flex items-center justify-center gap-space-xs shadow-sm" type="button"><span class="material-symbols-outlined text-[20px]">play_arrow</span>Run audit</button><button class="w-full py-space-sm px-space-md rounded-lg bg-white border border-[#cbd5e1] hover:bg-slate-50 text-on-surface font-body-sm text-body-sm font-medium transition-colors text-center" type="button">Load sample paper</button></div></div><div class="pt-space-md flex flex-col gap-space-sm"><nav class="flex flex-col gap-space-2xs"><a class="px-space-sm py-space-xs rounded-lg text-secondary hover:bg-slate-100 hover:text-on-surface transition-colors font-body-sm text-body-sm font-medium" data-path="inspection-canvas" href="#">Inspection Canvas</a><a class="px-space-sm py-space-xs rounded-lg text-secondary hover:bg-slate-100 hover:text-on-surface transition-colors font-body-sm text-body-sm font-medium" data-path="diagnostic-matrix" href="#">Diagnostic Matrix</a><a class="px-space-sm py-space-xs rounded-lg text-secondary hover:bg-slate-100 hover:text-on-surface transition-colors font-body-sm text-body-sm font-medium" data-path="cluster-telemetry" href="#">Cluster Telemetry</a><a class="px-space-sm py-space-xs rounded-lg text-secondary hover:bg-slate-100 hover:text-on-surface transition-colors font-body-sm text-body-sm font-medium" data-path="compliance-presets" href="#">Compliance Presets</a></nav><div class="inline-flex items-center gap-space-xs px-space-sm py-space-2xs rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-code-sm text-code-sm"><span class="material-symbols-outlined text-[16px]">lock</span>100% local. External requests: 0</div></div></aside><div class="pl-80"><header class="fixed top-0 left-80 right-0 h-16 bg-white/95 backdrop-blur-md border-b border-[#e2e8f0] shadow-sm z-40 flex items-center justify-between px-space-xl"><div class="flex items-center gap-space-md"><img alt="DeskReject Guard Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR4Zx_JsHxC-xobs8x8AFrnBC3vGmh5BXQCvCqGng9hdT14PtRW7Dp-7c7WZSAO7Mi6E6QL35G1AyC5_8SMr98Uqx8leEkSeIqqQt3cpeBKnYzMELPjk-oA5DN2Srgg_TqtbCI1A6MSpEot3Fey5bd-8Ad5ZTFmzwR9TXwo_8PDnGwu1ZshVo2kBKKRCAdY2pN47OUauemAxbt3Ppqsm9uNcE1i8KaZdYbExN_ZHI"/><span class="font-headline-md text-headline-md text-[#0f172a] font-bold tracking-tight">DeskReject Guard</span><nav class="hidden md:flex items-center gap-space-sm ml-space-lg"><a class="text-body-sm font-body-sm text-secondary hover:text-on-surface px-space-sm py-space-xs rounded-lg transition-colors font-medium" data-path="inspection-canvas" href="#">Inspector</a><a class="text-body-sm font-body-sm text-secondary hover:text-on-surface px-space-sm py-space-xs rounded-lg transition-colors font-medium" data-path="diagnostic-matrix" href="#">Diagnostics</a><a class="text-body-sm font-body-sm text-secondary hover:text-on-surface px-space-sm py-space-xs rounded-lg transition-colors font-medium" data-path="cluster-telemetry" href="#">Nodes</a><a class="text-body-sm font-body-sm text-secondary hover:text-on-surface px-space-sm py-space-xs rounded-lg transition-colors font-medium" data-path="compliance-presets" href="#">Venues</a></nav></div><div class="flex items-center gap-space-md"><div class="w-8 h-8 rounded-full bg-[#3ba4f6] flex items-center justify-center text-white shadow-sm"><span class="material-symbols-outlined text-[18px]">person</span></div></div></header><main class="w-full pt-16 bg-[#f8fafc] min-h-screen"><div class="flex flex-col w-full">
+<!-- Sub-Header Workspace Tabs -->
+<div class="w-full bg-white border-b border-[#e2e8f0] px-space-xl flex items-center justify-between">
+<div class="flex items-center gap-space-xs overflow-x-auto">
+<button class="flex items-center gap-space-xs px-space-md py-space-sm font-headline-sm text-headline-sm text-secondary hover:text-on-surface hover:bg-slate-50 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">layers</span>
+<span>Page Overlays</span>
+<span class="px-space-xs py-space-2xs rounded-full bg-slate-100 text-secondary font-code-sm text-code-sm">4</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-sm font-headline-sm text-headline-sm text-secondary hover:text-on-surface hover:bg-slate-50 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">gavel</span>
+<span>Findings</span>
+<span class="px-space-xs py-space-2xs rounded-full bg-slate-100 text-secondary font-code-sm text-code-sm">19</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-sm font-headline-sm text-headline-sm text-secondary hover:text-on-surface hover:bg-slate-50 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">photo_library</span>
+<span>Figures</span>
+<span class="px-space-xs py-space-2xs rounded-full bg-slate-100 text-secondary font-code-sm text-code-sm">5</span>
+</button>
+<!-- Active Tab: LaTeX Patches -->
+<button class="relative flex items-center gap-space-xs px-space-md py-space-sm font-headline-sm text-headline-sm text-[#0284c7] bg-sky-50/70 border-b-2 border-[#3ba4f6]" type="button">
+<span class="material-symbols-outlined text-[#3ba4f6] text-[18px]" style="font-variation-settings: 'FILL' 1;">build_circle</span>
+<span class="font-semibold text-on-surface">LaTeX Patches</span>
+<span class="px-space-xs py-space-2xs rounded-full bg-[#3ba4f6] text-white font-code-sm text-code-sm font-semibold">6 ready</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-sm font-headline-sm text-headline-sm text-secondary hover:text-on-surface hover:bg-slate-50 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+<span>Run Log</span>
+</button>
+</div>
+<!-- Right utility controls -->
+<div class="flex items-center gap-space-md py-space-xs">
+<div class="flex items-center gap-space-xs px-space-sm py-space-xs bg-[#f8fafc] border border-[#e2e8f0] rounded-lg">
+<span class="font-code-sm text-code-sm text-secondary font-medium">Preset:</span>
+<span class="font-code-sm text-code-sm text-on-surface font-semibold">NeurIPS 2024 double-blind</span>
+</div>
+<div class="flex items-center gap-space-xs text-emerald-700 font-code-sm text-code-sm font-medium">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span>Deterministic Patch Engine v4.2</span>
+</div>
+</div>
+</div>
+<!-- Main Canvas Workspace -->
+<div class="w-full p-space-xl flex flex-col gap-space-xl max-w-[1400px] mx-auto">
+<!-- Top Diagnostic Banner & Patch Orchestrator -->
+<div class="p-space-lg rounded-xl bg-white border border-[#e2e8f0] shadow-sm flex flex-col xl:flex-row items-start xl:items-center justify-between gap-space-lg">
+<div class="flex flex-col gap-space-xs">
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-[#f8fafc] border border-[#e2e8f0]">
+<span class="material-symbols-outlined text-primary text-[18px]">draft</span>
+<span class="font-code-md text-code-md text-[#0f172a] font-semibold">bad_paper.tex</span>
+<span class="font-body-sm text-body-sm text-secondary">loaded</span>
+</div>
+<div class="inline-flex items-center gap-space-xs px-space-sm py-space-2xs rounded-full bg-slate-100 border border-slate-200 text-on-surface font-label-caps text-label-caps uppercase font-medium">
+<span class="font-semibold text-slate-700">6 patches ready</span>
+<span class="text-slate-300">·</span>
+<span class="text-rose-600 font-semibold">8 fatal</span>
+<span class="text-slate-300">·</span>
+<span class="text-slate-600">3 warnings resolved</span>
+</div>
+<div class="inline-flex items-center gap-space-xs px-space-sm py-space-2xs rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-label-caps text-label-caps uppercase font-semibold">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span>AST-verified · pdflatex / xelatex clean</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-secondary">
+          Automated line-exact AST substitutions ready for double-blind submission compliance. Applying will generate a deterministic clean tree.
+        </p>
+</div>
+<!-- Action Cluster -->
+<div class="flex flex-wrap items-center gap-space-sm w-full xl:w-auto justify-end">
+<!-- View mode toggles -->
+<div class="flex items-center bg-[#f8fafc] border border-[#e2e8f0] rounded-lg p-space-2xs">
+<button class="px-space-sm py-space-2xs rounded-lg bg-white border border-[#cbd5e1] text-[#3ba4f6] font-code-sm text-code-sm font-semibold shadow-xs transition-colors" id="btnUnified" type="button">Unified</button>
+<button class="px-space-sm py-space-2xs rounded-lg text-secondary hover:text-on-surface font-code-sm text-code-sm transition-colors" id="btnSplit" type="button">Split</button>
+</div>
+<!-- Backup toggle -->
+<label class="flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-[#f8fafc] border border-[#e2e8f0] cursor-pointer select-none">
+<input checked="" class="h-4 w-4 rounded border-[#cbd5e1] text-[#3ba4f6] focus:ring-[#3ba4f6]" type="checkbox"/>
+<span class="font-code-sm text-code-sm text-secondary font-medium">Auto-backup (.tex.bak)</span>
+</label>
+<!-- Secondary Batch Actions (ghost buttons with #cbd5e1 border) -->
+<button class="flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-white border border-[#cbd5e1] hover:bg-slate-50 text-on-surface font-headline-sm text-headline-sm transition-colors shadow-xs" id="copyAllBtn" type="button">
+<span class="material-symbols-outlined text-[18px]">difference</span>
+<span>Copy all diffs</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-white border border-[#cbd5e1] hover:bg-slate-50 text-on-surface font-headline-sm text-headline-sm transition-colors shadow-xs" type="button">
+<span class="material-symbols-outlined text-[18px]">data_object</span>
+<span>.patch file</span>
+</button>
+<!-- Primary High-Impact Download Action: baby blue #3ba4f6 -->
+<button class="flex items-center gap-space-xs px-space-lg py-space-sm rounded-lg bg-[#3ba4f6] hover:bg-[#258de0] text-white font-headline-sm text-headline-sm font-semibold shadow-sm transition-all active:scale-[0.99]" type="button">
+<span class="material-symbols-outlined text-[18px]">download_for_offline</span>
+<span>Download patched .tex</span>
+</button>
+</div>
+</div>
+<!-- Toggle to view PDF-only scenario callout -->
+<div class="flex items-center justify-between px-space-md py-space-xs rounded-lg bg-white border border-[#e2e8f0]">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[18px]">info</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Working with PDF audits only? You can switch to the Manual Patch Fallback Guide.</span>
+</div>
+<button class="text-[#3ba4f6] hover:text-[#0284c7] font-code-sm text-code-sm font-semibold flex items-center gap-space-2xs transition-colors" id="togglePdfFallback" type="button">
+<span id="toggleFallbackLabel">Preview "No .tex Uploaded" Flow</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<!-- SECTION: Active LaTeX Patches (6 Cards) -->
+<div class="flex flex-col gap-space-lg" id="patchesContainer">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-md text-headline-md text-[#0f172a] font-bold">Pending Patches</span>
+<span class="px-space-sm py-space-2xs rounded-full bg-sky-50 text-[#0284c7] border border-sky-200 font-code-sm text-code-sm font-semibold">6 Applied in Memory</span>
+</div>
+<div class="flex items-center gap-space-md text-secondary font-code-sm text-code-sm">
+<span>Target Tree: <span class="text-on-surface font-mono font-medium">./neurips_submission_v2/</span></span>
+<button class="text-[#3ba4f6] hover:underline font-semibold" id="toggleAllPatches" type="button">Select / Deselect All</button>
+</div>
+</div>
+<!-- CARD 1 -->
+<div class="flex flex-col rounded-lg bg-white border border-[#e2e8f0] shadow-sm overflow-hidden transition-all">
+<!-- Card Header -->
+<div class="p-space-md bg-white border-b border-[#e2e8f0] flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center justify-center w-7 h-7 rounded-lg bg-sky-50 border border-sky-200 text-[#0284c7] font-code-md text-code-md font-bold">01</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-[#0f172a] font-semibold">Add review / anonymous class options</span>
+<div class="flex items-center gap-space-xs text-secondary font-code-sm text-code-sm">
+<span class="font-medium">bad_paper.tex</span>
+<span>:</span>
+<span class="text-slate-600 font-mono">Lines 1–4</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Severity Pills: #fee2e2 for fatal -->
+<span class="inline-flex items-center px-space-sm py-space-2xs rounded-full bg-[#fee2e2] text-[#991b1b] border border-rose-200 font-label-caps text-label-caps uppercase font-semibold">#2 ANON_AUTHOR_BLOCK (Fatal)</span>
+<span class="inline-flex items-center px-space-sm py-space-2xs rounded-full bg-[#fee2e2] text-[#991b1b] border border-rose-200 font-label-caps text-label-caps uppercase font-semibold">#3 ANON_EMAIL (Fatal)</span>
+<span class="inline-flex items-center px-space-sm py-space-2xs rounded-full bg-[#fee2e2] text-[#991b1b] border border-rose-200 font-label-caps text-label-caps uppercase font-semibold">#4 ANON_AFFILIATION (Fatal)</span>
+<!-- Actions -->
+<div class="flex items-center gap-space-xs ml-space-sm">
+<button class="px-space-sm py-space-xs rounded-lg bg-white border border-[#cbd5e1] hover:bg-slate-50 text-on-surface font-code-sm text-code-sm font-medium flex items-center gap-space-2xs transition-colors shadow-xs" onclick="copySnippet(this, '\\documentclass[preprint,10pt,nonatbib,anonymous]{neurips_2024}')" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span>Copy diff</span>
+</button>
+<label class="flex items-center gap-space-2xs px-space-sm py-space-xs rounded-lg bg-[#f8fafc] border border-[#e2e8f0] cursor-pointer select-none">
+<input checked="" class="patch-checkbox h-4 w-4 rounded border-[#cbd5e1] text-[#3ba4f6] focus:ring-[#3ba4f6]" type="checkbox"/>
+<span class="font-code-sm text-code-sm text-[#0284c7] font-semibold">Apply</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Syntax-highlighted Diff Content: JetBrains Mono on #f8fafc background with 1px border #e2e8f0 -->
+<div class="p-space-md bg-[#f8fafc] border-t border-[#e2e8f0] font-code-md text-code-md overflow-x-auto">
+<div class="flex flex-col gap-1 leading-relaxed">
+<div class="flex items-center text-[#475569] text-code-sm select-none py-0.5">
+<span class="w-12 text-right pr-space-sm text-slate-400">1</span>
+<span class="w-6 text-center text-slate-300"> </span>
+<span class="text-[#475569] font-mono">% NeurIPS 2024 Submission Configuration</span>
+</div>
+<!-- Removal line: #fee2e2 background, left border 3px #ef4444, text #991b1b -->
+<div class="flex items-center bg-[#fee2e2] text-[#991b1b] border-l-[3px] border-[#ef4444] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-rose-400 select-none font-mono">2</span>
+<span class="w-6 text-center select-none font-bold text-[#ef4444]">-</span>
+<span class="font-mono">\documentclass[preprint,10pt]{neurips_2024}</span>
+</div>
+<!-- Addition line: #d1fae5 background, left border 3px #10b981, text #065f46 -->
+<div class="flex items-center bg-[#d1fae5] text-[#065f46] border-l-[3px] border-[#10b981] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-emerald-600 select-none font-mono">2</span>
+<span class="w-6 text-center select-none font-bold text-[#10b981]">+</span>
+<span class="font-mono">\documentclass[preprint,10pt,nonatbib,anonymous]{neurips_2024}</span>
+</div>
+<!-- Comment annotation -->
+<div class="flex items-center bg-[#d1fae5]/50 text-[#065f46] border-l-[3px] border-[#10b981] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm select-none opacity-0">3</span>
+<span class="w-6 text-center select-none font-bold text-[#10b981]">+</span>
+<span class="italic font-mono text-emerald-800">% Automatically suppresses author metadata and activates line numbers for blind review</span>
+</div>
+<div class="flex items-center text-[#475569] text-code-sm select-none py-0.5">
+<span class="w-12 text-right pr-space-sm text-slate-400">4</span>
+<span class="w-6 text-center text-slate-300"> </span>
+<span class="text-[#475569] font-mono">\usepackage[utf8]{inputenc}</span>
+</div>
+</div>
+</div>
+</div>
+<!-- CARD 2 -->
+<div class="flex flex-col rounded-lg bg-white border border-[#e2e8f0] shadow-sm overflow-hidden transition-all">
+<div class="p-space-md bg-white border-b border-[#e2e8f0] flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center justify-center w-7 h-7 rounded-lg bg-sky-50 border border-sky-200 text-[#0284c7] font-code-md text-code-md font-bold">02</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-[#0f172a] font-semibold">Replace author block with anonymous placeholder</span>
+<div class="flex items-center gap-space-xs text-secondary font-code-sm text-code-sm">
+<span class="font-medium">bad_paper.tex</span>
+<span>:</span>
+<span class="text-slate-600 font-mono">Lines 12–22</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<span class="inline-flex items-center px-space-sm py-space-2xs rounded-full bg-[#fee2e2] text-[#991b1b] border border-rose-200 font-label-caps text-label-caps uppercase font-semibold">#2 ANON_AUTHOR_BLOCK</span>
+<span class="inline-flex items-center px-space-sm py-space-2xs rounded-full bg-[#fee2e2] text-[#991b1b] border border-rose-200 font-label-caps text-label-caps uppercase font-semibold">#3 ANON_EMAIL</span>
+<span class="inline-flex items-center px-space-sm py-space-2xs rounded-full bg-[#fee2e2] text-[#991b1b] border border-rose-200 font-label-caps text-label-caps uppercase font-semibold">#4 ANON_AFFILIATION</span>
+<div class="flex items-center gap-space-xs ml-space-sm">
+<button class="px-space-sm py-space-xs rounded-lg bg-white border border-[#cbd5e1] hover:bg-slate-50 text-on-surface font-code-sm text-code-sm font-medium flex items-center gap-space-2xs transition-colors shadow-xs" onclick="copySnippet(this, '\\author{Anonymous Authors \\\\\\\\ Affiliation omitted for double-blind review \\\\\\\\ \\texttt{anonymous@submission.org}}')" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span>Copy diff</span>
+</button>
+<label class="flex items-center gap-space-2xs px-space-sm py-space-xs rounded-lg bg-[#f8fafc] border border-[#e2e8f0] cursor-pointer select-none">
+<input checked="" class="patch-checkbox h-4 w-4 rounded border-[#cbd5e1] text-[#3ba4f6] focus:ring-[#3ba4f6]" type="checkbox"/>
+<span class="font-code-sm text-code-sm text-[#0284c7] font-semibold">Apply</span>
+</label>
+</div>
+</div>
+</div>
+<div class="p-space-md bg-[#f8fafc] border-t border-[#e2e8f0] font-code-md text-code-md overflow-x-auto">
+<div class="flex flex-col gap-1 leading-relaxed">
+<div class="flex items-center text-[#475569] text-code-sm select-none py-0.5">
+<span class="w-12 text-right pr-space-sm text-slate-400">11</span>
+<span class="w-6 text-center text-slate-300"> </span>
+<span class="text-[#475569] font-mono">\title{Adaptive Latent Probing via Residual Routing}</span>
+</div>
+<!-- Deletions -->
+<div class="flex items-center bg-[#fee2e2] text-[#991b1b] border-l-[3px] border-[#ef4444] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-rose-400 select-none font-mono">12</span>
+<span class="w-6 text-center select-none font-bold text-[#ef4444]">-</span>
+<span class="font-mono">\author{Jane Rao \and Arjun Mehta \\</span>
+</div>
+<div class="flex items-center bg-[#fee2e2] text-[#991b1b] border-l-[3px] border-[#ef4444] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-rose-400 select-none font-mono">13</span>
+<span class="w-6 text-center select-none font-bold text-[#ef4444]">-</span>
+<span class="font-mono">  Department of Computer Science \&amp; Engineering \\</span>
+</div>
+<div class="flex items-center bg-[#fee2e2] text-[#991b1b] border-l-[3px] border-[#ef4444] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-rose-400 select-none font-mono">14</span>
+<span class="w-6 text-center select-none font-bold text-[#ef4444]">-</span>
+<span class="font-mono">  Example University \\</span>
+</div>
+<div class="flex items-center bg-[#fee2e2] text-[#991b1b] border-l-[3px] border-[#ef4444] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-rose-400 select-none font-mono">15</span>
+<span class="w-6 text-center select-none font-bold text-[#ef4444]">-</span>
+<span class="font-mono">  \texttt{\{jane.rao, a.mehta\}@example-univ.edu}}</span>
+</div>
+<!-- Additions -->
+<div class="flex items-center bg-[#d1fae5] text-[#065f46] border-l-[3px] border-[#10b981] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-emerald-600 select-none font-mono">12</span>
+<span class="w-6 text-center select-none font-bold text-[#10b981]">+</span>
+<span class="font-mono">\author{Anonymous Authors \\</span>
+</div>
+<div class="flex items-center bg-[#d1fae5] text-[#065f46] border-l-[3px] border-[#10b981] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-emerald-600 select-none font-mono">13</span>
+<span class="w-6 text-center select-none font-bold text-[#10b981]">+</span>
+<span class="font-mono">  Affiliation omitted for double-blind review \\</span>
+</div>
+<div class="flex items-center bg-[#d1fae5] text-[#065f46] border-l-[3px] border-[#10b981] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-emerald-600 select-none font-mono">14</span>
+<span class="w-6 text-center select-none font-bold text-[#10b981]">+</span>
+<span class="font-mono">  \texttt{anonymous@submission.org}}</span>
+</div>
+</div>
+</div>
+</div>
+<!-- CARD 3 -->
+<div class="flex flex-col rounded-lg bg-white border border-[#e2e8f0] shadow-sm overflow-hidden transition-all">
+<div class="p-space-md bg-white border-b border-[#e2e8f0] flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center justify-center w-7 h-7 rounded-lg bg-sky-50 border border-sky-200 text-[#0284c7] font-code-md text-code-md font-bold">03</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-[#0f172a] font-semibold">Swap repository URL for anonymous link</span>
+<div class="flex items-center gap-space-xs text-secondary font-code-sm text-code-sm">
+<span class="font-medium">bad_paper.tex</span>
+<span>:</span>
+<span class="text-slate-600 font-mono">Lines 142–145</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<span class="inline-flex items-center px-space-sm py-space-2xs rounded-full bg-[#fee2e2] text-[#991b1b] border border-rose-200 font-label-caps text-label-caps uppercase font-semibold">#5 ANON_REPO_URL (Fatal)</span>
+<span class="inline-flex items-center px-space-sm py-space-2xs rounded-full bg-slate-100 text-slate-700 border border-slate-200 font-label-caps text-label-caps uppercase font-medium">Preserves commit SHA</span>
+<div class="flex items-center gap-space-xs ml-space-sm">
+<button class="px-space-sm py-space-xs rounded-lg bg-white border border-[#cbd5e1] hover:bg-slate-50 text-on-surface font-code-sm text-code-sm font-medium flex items-center gap-space-2xs transition-colors shadow-xs" onclick="copySnippet(this, '\\url{https://anonymous.4open.science/r/deskproject-7F3A}')" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span>Copy diff</span>
+</button>
+<label class="flex items-center gap-space-2xs px-space-sm py-space-xs rounded-lg bg-[#f8fafc] border border-[#e2e8f0] cursor-pointer select-none">
+<input checked="" class="patch-checkbox h-4 w-4 rounded border-[#cbd5e1] text-[#3ba4f6] focus:ring-[#3ba4f6]" type="checkbox"/>
+<span class="font-code-sm text-code-sm text-[#0284c7] font-semibold">Apply</span>
+</label>
+</div>
+</div>
+</div>
+<div class="p-space-md bg-[#f8fafc] border-t border-[#e2e8f0] font-code-md text-code-md overflow-x-auto">
+<div class="flex flex-col gap-1 leading-relaxed">
+<div class="flex items-center text-[#475569] text-code-sm select-none py-0.5">
+<span class="w-12 text-right pr-space-sm text-slate-400">142</span>
+<span class="w-6 text-center text-slate-300"> </span>
+<span class="text-[#475569] font-mono">Our complete replication package and dataset split scripts are available at:</span>
+</div>
+<!-- Deletion -->
+<div class="flex items-center bg-[#fee2e2] text-[#991b1b] border-l-[3px] border-[#ef4444] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-rose-400 select-none font-mono">143</span>
+<span class="w-6 text-center select-none font-bold text-[#ef4444]">-</span>
+<span class="font-mono">\url{https://github.com/rao-lab/deskproject}</span>
+</div>
+<!-- Addition -->
+<div class="flex items-center bg-[#d1fae5] text-[#065f46] border-l-[3px] border-[#10b981] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-emerald-600 select-none font-mono">143</span>
+<span class="w-6 text-center select-none font-bold text-[#10b981]">+</span>
+<span class="font-mono">\url{https://anonymous.4open.science/r/deskproject-7F3A}</span>
+</div>
+<div class="flex items-center text-[#475569] text-code-sm select-none py-0.5">
+<span class="w-12 text-right pr-space-sm text-slate-400">144</span>
+<span class="w-6 text-center text-slate-300"> </span>
+<span class="text-[#475569] font-mono">under an MIT open-source license.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- CARD 4 -->
+<div class="flex flex-col rounded-lg bg-white border border-[#e2e8f0] shadow-sm overflow-hidden transition-all">
+<div class="p-space-md bg-white border-b border-[#e2e8f0] flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center justify-center w-7 h-7 rounded-lg bg-sky-50 border border-sky-200 text-[#0284c7] font-code-md text-code-md font-bold">04</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-[#0f172a] font-semibold">Comment out acknowledgements</span>
+<div class="flex items-center gap-space-xs text-secondary font-code-sm text-code-sm">
+<span class="font-medium">bad_paper.tex</span>
+<span>:</span>
+<span class="text-slate-600 font-mono">Lines 210–216</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Warning severity chip: #fef3c7 -->
+<span class="inline-flex items-center px-space-sm py-space-2xs rounded-full bg-[#fef3c7] text-[#92400e] border border-amber-200 font-label-caps text-label-caps uppercase font-semibold">#15 ANON_ACK (Warning)</span>
+<div class="flex items-center gap-space-xs ml-space-sm">
+<button class="px-space-sm py-space-xs rounded-lg bg-white border border-[#cbd5e1] hover:bg-slate-50 text-on-surface font-code-sm text-code-sm font-medium flex items-center gap-space-2xs transition-colors shadow-xs" onclick="copySnippet(this, '%\\section*{Acknowledgements}\n%Acknowledgements omitted during double-blind peer review.')" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span>Copy diff</span>
+</button>
+<label class="flex items-center gap-space-2xs px-space-sm py-space-xs rounded-lg bg-[#f8fafc] border border-[#e2e8f0] cursor-pointer select-none">
+<input checked="" class="patch-checkbox h-4 w-4 rounded border-[#cbd5e1] text-[#3ba4f6] focus:ring-[#3ba4f6]" type="checkbox"/>
+<span class="font-code-sm text-code-sm text-[#0284c7] font-semibold">Apply</span>
+</label>
+</div>
+</div>
+</div>
+<div class="p-space-md bg-[#f8fafc] border-t border-[#e2e8f0] font-code-md text-code-md overflow-x-auto">
+<div class="flex flex-col gap-1 leading-relaxed">
+<!-- Deletions -->
+<div class="flex items-center bg-[#fee2e2] text-[#991b1b] border-l-[3px] border-[#ef4444] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-rose-400 select-none font-mono">210</span>
+<span class="w-6 text-center select-none font-bold text-[#ef4444]">-</span>
+<span class="font-mono">\section*{Acknowledgements}</span>
+</div>
+<div class="flex items-center bg-[#fee2e2] text-[#991b1b] border-l-[3px] border-[#ef4444] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-rose-400 select-none font-mono">211</span>
+<span class="w-6 text-center select-none font-bold text-[#ef4444]">-</span>
+<span class="font-mono">This work was supported by NSF Award \#2149802 and Acrobat AI Labs compute credits.</span>
+</div>
+<!-- Additions -->
+<div class="flex items-center bg-[#d1fae5] text-[#065f46] border-l-[3px] border-[#10b981] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-emerald-600 select-none font-mono">210</span>
+<span class="w-6 text-center select-none font-bold text-[#10b981]">+</span>
+<span class="font-mono">%\section*{Acknowledgements}</span>
+</div>
+<div class="flex items-center bg-[#d1fae5] text-[#065f46] border-l-[3px] border-[#10b981] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-emerald-600 select-none font-mono">211</span>
+<span class="w-6 text-center select-none font-bold text-[#10b981]">+</span>
+<span class="font-mono">%Acknowledgements omitted during double-blind peer review. Will be restored in camera-ready version.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- CARD 5 -->
+<div class="flex flex-col rounded-lg bg-white border border-[#e2e8f0] shadow-sm overflow-hidden transition-all">
+<div class="p-space-md bg-white border-b border-[#e2e8f0] flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center justify-center w-7 h-7 rounded-lg bg-sky-50 border border-sky-200 text-[#0284c7] font-code-md text-code-md font-bold">05</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-[#0f172a] font-semibold">Add missing statement sections (Data, Ethics, AI Disclosure)</span>
+<div class="flex items-center gap-space-xs text-secondary font-code-sm text-code-sm">
+<span class="font-medium">bad_paper.tex</span>
+<span>:</span>
+<span class="text-slate-600 font-mono">Lines 218–228</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<span class="inline-flex items-center px-space-sm py-space-2xs rounded-full bg-[#fee2e2] text-[#991b1b] border border-rose-200 font-label-caps text-label-caps uppercase font-semibold">#10 STMT_DATA (Fatal)</span>
+<span class="inline-flex items-center px-space-sm py-space-2xs rounded-full bg-[#fee2e2] text-[#991b1b] border border-rose-200 font-label-caps text-label-caps uppercase font-semibold">#11 STMT_CONFLICT (Fatal)</span>
+<span class="inline-flex items-center px-space-sm py-space-2xs rounded-full bg-[#fee2e2] text-[#991b1b] border border-rose-200 font-label-caps text-label-caps uppercase font-semibold">#12 STMT_AI_USE (Fatal)</span>
+<div class="flex items-center gap-space-xs ml-space-sm">
+<button class="px-space-sm py-space-xs rounded-lg bg-white border border-[#cbd5e1] hover:bg-slate-50 text-on-surface font-code-sm text-code-sm font-medium flex items-center gap-space-2xs transition-colors shadow-xs" onclick="copySnippet(this, '\\section*{Data Availability}\nAll code, checkpoints, and benchmark evaluations are available at the anonymous link.\n\n\\section*{Competing Interests / Conflict of Interest}\nThe authors declare no competing financial or non-financial interests.\n\n\\section*{Generative AI and AI-Assisted Technologies}\nThe authors used Gemma 4 solely for grammatical polish under direct human supervision.')" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span>Copy diff</span>
+</button>
+<label class="flex items-center gap-space-2xs px-space-sm py-space-xs rounded-lg bg-[#f8fafc] border border-[#e2e8f0] cursor-pointer select-none">
+<input checked="" class="patch-checkbox h-4 w-4 rounded border-[#cbd5e1] text-[#3ba4f6] focus:ring-[#3ba4f6]" type="checkbox"/>
+<span class="font-code-sm text-code-sm text-[#0284c7] font-semibold">Apply</span>
+</label>
+</div>
+</div>
+</div>
+<div class="p-space-md bg-[#f8fafc] border-t border-[#e2e8f0] font-code-md text-code-md overflow-x-auto">
+<div class="flex flex-col gap-1 leading-relaxed">
+<div class="flex items-center bg-[#d1fae5] text-[#065f46] border-l-[3px] border-[#10b981] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-emerald-600 select-none font-mono">218</span>
+<span class="w-6 text-center select-none font-bold text-[#10b981]">+</span>
+<span class="font-mono">\section*{Data Availability}</span>
+</div>
+<div class="flex items-center bg-[#d1fae5] text-[#065f46] border-l-[3px] border-[#10b981] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-emerald-600 select-none font-mono">219</span>
+<span class="w-6 text-center select-none font-bold text-[#10b981]">+</span>
+<span class="font-mono">All code, checkpoints, and benchmark evaluations are available at the anonymous link.</span>
+</div>
+<div class="flex items-center bg-[#d1fae5] text-[#065f46] border-l-[3px] border-[#10b981] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-emerald-600 select-none font-mono">220</span>
+<span class="w-6 text-center select-none font-bold text-[#10b981]">+</span>
+<span class="font-mono">\section*{Competing Interests / Conflict of Interest}</span>
+</div>
+<div class="flex items-center bg-[#d1fae5] text-[#065f46] border-l-[3px] border-[#10b981] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-emerald-600 select-none font-mono">221</span>
+<span class="w-6 text-center select-none font-bold text-[#10b981]">+</span>
+<span class="font-mono">The authors declare no competing financial or non-financial interests.</span>
+</div>
+<div class="flex items-center bg-[#d1fae5] text-[#065f46] border-l-[3px] border-[#10b981] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-emerald-600 select-none font-mono">222</span>
+<span class="w-6 text-center select-none font-bold text-[#10b981]">+</span>
+<span class="font-mono">\section*{Generative AI and AI-Assisted Technologies}</span>
+</div>
+<div class="flex items-center bg-[#d1fae5] text-[#065f46] border-l-[3px] border-[#10b981] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-emerald-600 select-none font-mono">223</span>
+<span class="w-6 text-center select-none font-bold text-[#10b981]">+</span>
+<span class="font-mono">The authors used Gemma 4 solely for grammatical polish under direct human supervision.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- CARD 6 -->
+<div class="flex flex-col rounded-lg bg-white border border-[#e2e8f0] shadow-sm overflow-hidden transition-all">
+<div class="p-space-md bg-white border-b border-[#e2e8f0] flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center justify-center w-7 h-7 rounded-lg bg-sky-50 border border-sky-200 text-[#0284c7] font-code-md text-code-md font-bold">06</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-[#0f172a] font-semibold">Fix figure width &amp; font legibility bounds</span>
+<div class="flex items-center gap-space-xs text-secondary font-code-sm text-code-sm">
+<span class="font-medium">bad_paper.tex</span>
+<span>:</span>
+<span class="text-slate-600 font-mono">Lines 98–104</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Warning severity chip: #fef3c7 -->
+<span class="inline-flex items-center px-space-sm py-space-2xs rounded-full bg-[#fef3c7] text-[#92400e] border border-amber-200 font-label-caps text-label-caps uppercase font-semibold">#18 LEG_FONT_TOO_SMALL (Warning)</span>
+<div class="flex items-center gap-space-xs ml-space-sm">
+<button class="px-space-sm py-space-xs rounded-lg bg-white border border-[#cbd5e1] hover:bg-slate-50 text-on-surface font-code-sm text-code-sm font-medium flex items-center gap-space-2xs transition-colors shadow-xs" onclick="copySnippet(this, '\\includegraphics[width=0.49\\textwidth]{figures/ablation_scatter.pdf}')" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span>Copy diff</span>
+</button>
+<label class="flex items-center gap-space-2xs px-space-sm py-space-xs rounded-lg bg-[#f8fafc] border border-[#e2e8f0] cursor-pointer select-none">
+<input checked="" class="patch-checkbox h-4 w-4 rounded border-[#cbd5e1] text-[#3ba4f6] focus:ring-[#3ba4f6]" type="checkbox"/>
+<span class="font-code-sm text-code-sm text-[#0284c7] font-semibold">Apply</span>
+</label>
+</div>
+</div>
+</div>
+<div class="p-space-md bg-[#f8fafc] border-t border-[#e2e8f0] font-code-md text-code-md overflow-x-auto">
+<div class="flex flex-col gap-1 leading-relaxed">
+<div class="flex items-center text-[#475569] text-code-sm select-none py-0.5">
+<span class="w-12 text-right pr-space-sm text-slate-400">98</span>
+<span class="w-6 text-center text-slate-300"> </span>
+<span class="text-[#475569] font-mono">\begin{figure}[htbp] \centering</span>
+</div>
+<!-- Deletion -->
+<div class="flex items-center bg-[#fee2e2] text-[#991b1b] border-l-[3px] border-[#ef4444] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-rose-400 select-none font-mono">99</span>
+<span class="w-6 text-center select-none font-bold text-[#ef4444]">-</span>
+<span class="font-mono">  \includegraphics[width=0.42\textwidth]{figures/ablation_scatter.pdf}</span>
+</div>
+<!-- Addition -->
+<div class="flex items-center bg-[#d1fae5] text-[#065f46] border-l-[3px] border-[#10b981] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm text-emerald-600 select-none font-mono">99</span>
+<span class="w-6 text-center select-none font-bold text-[#10b981]">+</span>
+<span class="font-mono">  \includegraphics[width=0.49\textwidth]{figures/ablation_scatter.pdf}</span>
+</div>
+<div class="flex items-center bg-[#d1fae5]/50 text-[#065f46] border-l-[3px] border-[#10b981] -mx-space-md px-space-md py-0.5">
+<span class="w-12 text-right pr-space-sm select-none opacity-0">100</span>
+<span class="w-6 text-center select-none font-bold text-[#10b981]">+</span>
+<span class="italic font-mono text-emerald-800">  % Scales minimum legible axis font size above 7pt threshold</span>
+</div>
+<div class="flex items-center text-[#475569] text-code-sm select-none py-0.5">
+<span class="w-12 text-right pr-space-sm text-slate-400">101</span>
+<span class="w-6 text-center text-slate-300"> </span>
+<span class="text-[#475569] font-mono">  \caption{Ablation performance against residual depth.}</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION: No .tex Uploaded Alternative / Manual Fix Hints (Interactive Drawer) -->
+<div class="hidden flex-col gap-space-lg" id="pdfFallbackView">
+<div class="p-space-2xl rounded-xl bg-white border border-[#e2e8f0] shadow-sm flex flex-col items-center justify-center text-center gap-space-md">
+<div class="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[32px]">folder_zip</span>
+</div>
+<div class="flex flex-col gap-space-2xs max-w-md">
+<span class="font-headline-md text-headline-md text-on-surface font-semibold">Upload LaTeX Source for 1-Click Fixes</span>
+<p class="font-body-md text-body-md text-secondary">
+            Currently analyzing PDF metadata only. Upload your .tex archive to automatically generate inline AST diff patches and verify compilability against NeurIPS 2024.
+          </p>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-lg py-space-sm rounded-lg bg-[#3ba4f6] text-white font-headline-sm text-headline-sm font-semibold flex items-center gap-space-xs hover:bg-[#258de0] transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">upload_file</span>
+<span>Upload .tex archive</span>
+</button>
+<button class="px-space-md py-space-sm rounded-lg bg-white border border-[#cbd5e1] hover:bg-slate-50 text-on-surface font-body-sm text-body-sm transition-colors" type="button">
+            Learn format specs
+          </button>
+</div>
+</div>
+<!-- Manual Snippet Guidance Accordions -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Manual Fix Hints (Plain Text LaTeX Templates)</span>
+<span class="font-code-sm text-code-sm text-secondary">Copy-paste into your editor if patching locally</span>
+</div>
+<div class="flex flex-col rounded-xl bg-white border border-[#e2e8f0] shadow-sm p-space-md gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface font-medium">Snippet 1: NeurIPS 2024 Anonymous Document Class</span>
+<button class="px-space-sm py-space-xs rounded-lg bg-white border border-[#cbd5e1] hover:bg-slate-50 text-on-surface font-code-sm text-code-sm flex items-center gap-space-2xs shadow-xs" onclick="copySnippet(this, '\\documentclass[preprint,10pt,nonatbib,anonymous]{neurips_2024}')" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span>Copy</span>
+</button>
+</div>
+<div class="p-space-sm rounded-lg bg-[#f8fafc] border border-[#e2e8f0] font-code-sm text-code-sm text-slate-800 font-mono">
+            \documentclass[preprint,10pt,nonatbib,anonymous]{neurips_2024}
+          </div>
+</div>
+<div class="flex flex-col rounded-xl bg-white border border-[#e2e8f0] shadow-sm p-space-md gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface font-medium">Snippet 2: Standard Compliance Statements Block</span>
+<button class="px-space-sm py-space-xs rounded-lg bg-white border border-[#cbd5e1] hover:bg-slate-50 text-on-surface font-code-sm text-code-sm flex items-center gap-space-2xs shadow-xs" onclick="copySnippet(this, '\\section*{Data Availability}\nAll data and scripts are archived under anonymous repository.\n\n\\section*{Ethics &amp; Generative AI}\nNo external generative tools used for core intellectual claims.')" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span>Copy</span>
+</button>
+</div>
+<div class="p-space-sm rounded-lg bg-[#f8fafc] border border-[#e2e8f0] font-code-sm text-code-sm text-slate-800 font-mono">
+            \section*{Data Availability}<br/>
+            All data and scripts are archived under anonymous repository.<br/><br/>
+            \section*{Ethics &amp; Generative AI}<br/>
+            No external generative tools used for core intellectual claims.
+          </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Toast Notification Container -->
+<div class="fixed bottom-6 right-6 bg-slate-900 text-white px-space-md py-space-sm rounded-lg shadow-xl font-code-sm text-code-sm flex items-center gap-space-xs transform translate-y-16 opacity-0 transition-all duration-200 pointer-events-none z-50" id="toast">
+<span class="material-symbols-outlined text-emerald-400 text-[18px]">check_circle</span>
+<span id="toastMsg">Snippet copied to clipboard</span>
+</div>
+</div>
+<script>
+  // Quick copy interaction with floating toast
+  function copySnippet(btn, text) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+    }
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+    toastMsg.innerText = 'Diff snippet copied to clipboard';
+    toast.classList.remove('translate-y-16', 'opacity-0');
+    setTimeout(() => {
+      toast.classList.add('translate-y-16', 'opacity-0');
+    }, 2200);
+  }
+
+  // Copy all diffs listener
+  document.getElementById('copyAllBtn')?.addEventListener('click', function() {
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+    toastMsg.innerText = 'All 6 unified diffs copied into clipboard';
+    toast.classList.remove('translate-y-16', 'opacity-0');
+    setTimeout(() => {
+      toast.classList.add('translate-y-16', 'opacity-0');
+    }, 2500);
+  });
+
+  // Toggle Unified vs Split View styling
+  const btnUnified = document.getElementById('btnUnified');
+  const btnSplit = document.getElementById('btnSplit');
+  btnUnified?.addEventListener('click', () => {
+    btnUnified.classList.add('bg-white', 'border', 'border-[#cbd5e1]', 'text-[#3ba4f6]', 'shadow-xs');
+    btnUnified.classList.remove('text-secondary');
+    btnSplit.classList.remove('bg-white', 'border', 'border-[#cbd5e1]', 'text-[#3ba4f6]', 'shadow-xs');
+    btnSplit.classList.add('text-secondary');
+  });
+  btnSplit?.addEventListener('click', () => {
+    btnSplit.classList.add('bg-white', 'border', 'border-[#cbd5e1]', 'text-[#3ba4f6]', 'shadow-xs');
+    btnSplit.classList.remove('text-secondary');
+    btnUnified.classList.remove('bg-white', 'border', 'border-[#cbd5e1]', 'text-[#3ba4f6]', 'shadow-xs');
+    btnUnified.classList.add('text-secondary');
+  });
+
+  // Toggle All Patches Selection
+  let allSelected = true;
+  document.getElementById('toggleAllPatches')?.addEventListener('click', () => {
+    allSelected = !allSelected;
+    document.querySelectorAll('.patch-checkbox').forEach(cb => {
+      cb.checked = allSelected;
+    });
+  });
+
+  // Toggle between Normal Patches and PDF-only Preview state
+  const toggleFallback = document.getElementById('togglePdfFallback');
+  const patchesContainer = document.getElementById('patchesContainer');
+  const pdfFallbackView = document.getElementById('pdfFallbackView');
+  const toggleFallbackLabel = document.getElementById('toggleFallbackLabel');
+
+  toggleFallback?.addEventListener('click', () => {
+    const isShowingFallback = !pdfFallbackView.classList.contains('hidden');
+    if (isShowingFallback) {
+      pdfFallbackView.classList.add('hidden');
+      patchesContainer.classList.remove('hidden');
+      toggleFallbackLabel.innerText = 'Preview "No .tex Uploaded" Flow';
+    } else {
+      pdfFallbackView.classList.remove('hidden');
+      patchesContainer.classList.add('hidden');
+      toggleFallbackLabel.innerText = 'Back to Active Patches';
+    }
+  });
+</script></main></div></body></html>

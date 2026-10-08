@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"secondary-fixed":"#e2e8f0","error-container":"#fee2e2","on-primary-container":"#0369a1","secondary-fixed-dim":"#cbd5e1","surface-container-highest":"#e2e8f0","surface-bright":"#ffffff","surface-tint":"#7dd3fc","on-secondary":"#ffffff","on-surface":"#0f172a","inverse-surface":"#0f172a","on-secondary-container":"#475569","secondary-container":"#f1f5f9","on-primary-fixed-variant":"#026aa2","on-tertiary-fixed":"#022c22","on-error-container":"#991b1b","primary-fixed-dim":"#7dd3fc","tertiary-fixed":"#6ffbbe","surface-container-high":"#f1f5f9","surface-container-low":"#f8fafc","primary":"#3ba4f6","on-error":"#ffffff","surface-container":"#f8fafc","tertiary-fixed-dim":"#4edea3","primary-fixed":"#bae6fd","inverse-on-surface":"#f8fafc","on-secondary-fixed":"#0f172a","tertiary-container":"#d1fae5","background":"#ffffff","surface-variant":"#f1f5f9","outline":"#cbd5e1","surface-container-lowest":"#ffffff","surface-dim":"#f8fafc","primary-container":"#3ba4f6","on-tertiary-container":"#065f46","secondary":"#64748b","on-tertiary-fixed-variant":"#005236","on-tertiary":"#ffffff","on-primary-fixed":"#001d34","inverse-primary":"#99cbff","outline-variant":"#e2e8f0","on-background":"#0f172a","on-surface-variant":"#475569","surface":"#ffffff","on-secondary-fixed-variant":"#38485d","tertiary":"#10b981","on-primary":"#ffffff","error":"#ef4444"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-sm":"0.5rem","space-2xl":"2rem","gutter":"1rem","space-xl":"1.5rem","space-md":"0.75rem","space-lg":"1rem","space-2xs":"0.125rem","gutter-compact":"0.5rem","space-xs":"0.25rem","margin-mobile":"0.75rem","margin":"1.5rem"},fontFamily:{"headline-lg":["Inter"],"body-lg":["Inter"],"code-lg":["JetBrains Mono"],"headline-md":["Inter"],"body-md":["Inter"],"code-sm":["JetBrains Mono"],"display-lg-mobile":["Inter"],"headline-sm":["Inter"],"body-sm":["Inter"],"display-lg":["Inter"],"label-caps":["JetBrains Mono"],"code-md":["JetBrains Mono"]},fontSize:{"headline-lg":["22px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"body-lg":["15px",{"lineHeight":"22px","fontWeight":"400"}],"code-lg":["14px",{"lineHeight":"20px","fontWeight":"500"}],"headline-md":["18px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-md":["13px",{"lineHeight":"18px","fontWeight":"400"}],"code-sm":["11px",{"lineHeight":"15px","fontWeight":"400"}],"display-lg-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["15px",{"lineHeight":"20px","letterSpacing":"-0.005em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"display-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-caps":["10px",{"lineHeight":"14px","letterSpacing":"0.06em","fontWeight":"600"}],"code-md":["12px",{"lineHeight":"18px","fontWeight":"400"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-80 bg-surface-container-low border-r border-outline-variant z-50 flex flex-col justify-between overflow-y-auto px-space-lg py-space-lg"><div class="flex flex-col gap-space-lg"><div class="flex flex-col gap-space-xs"><div class="flex items-center gap-space-sm"><img alt="DeskReject Guard Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR4Zx_JsHxC-xobs8x8AFrnBC3vGmh5BXQCvCqGng9hdT14PtRW7Dp-7c7WZSAO7Mi6E6QL35G1AyC5_8SMr98Uqx8leEkSeIqqQt3cpeBKnYzMELPjk-oA5DN2Srgg_TqtbCI1A6MSpEot3Fey5bd-8Ad5ZTFmzwR9TXwo_8PDnGwu1ZshVo2kBKKRCAdY2pN47OUauemAxbt3Ppqsm9uNcE1i8KaZdYbExN_ZHI"/><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight font-bold">DeskReject Guard</span></div><p class="font-body-sm text-body-sm text-on-surface-variant">Catch it before the desk does.</p></div><div class="flex flex-col gap-space-xs"><label class="font-label-caps text-label-caps uppercase text-secondary font-semibold">Venue Preset</label><div class="flex flex-col gap-space-xs"><div class="flex items-center justify-between p-space-sm rounded-lg bg-white border border-outline-variant hover:border-outline cursor-pointer shadow-sm"><span class="font-body-sm text-body-sm text-on-surface truncate">NeurIPS-style double-blind (approximate, editable)</span><span class="material-symbols-outlined text-primary text-[18px]">expand_more</span></div></div><div class="flex items-center justify-between pt-space-2xs"><span class="font-body-sm text-body-sm text-secondary">Presets are approximate, not official.</span><span class="inline-flex items-center px-space-xs py-space-2xs rounded bg-tertiary-container text-on-tertiary-container font-label-caps text-label-caps uppercase font-bold">Anonymity: ON</span></div></div><div class="flex flex-col gap-space-sm"><label class="font-label-caps text-label-caps uppercase text-secondary font-semibold">Target Manuscript</label><div class="p-space-sm rounded-lg bg-white border border-outline-variant flex items-center justify-between gap-space-sm shadow-sm"><div class="flex items-center gap-space-sm min-w-0"><span class="material-symbols-outlined text-primary text-[20px]">description</span><div class="flex flex-col min-w-0"><span class="font-code-md text-code-md text-on-surface truncate font-medium">bad_paper.pdf</span><span class="font-body-sm text-body-sm text-secondary">4 pages • 2.4 MB</span></div></div><button class="text-secondary hover:text-error transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">close</span></button></div><div class="p-space-sm rounded-lg bg-white border border-dashed border-outline hover:border-primary flex items-center gap-space-sm cursor-pointer transition-colors shadow-sm"><span class="material-symbols-outlined text-secondary text-[20px]">code</span><div class="flex flex-col"><span class="font-body-sm text-body-sm text-on-surface font-medium">Upload .tex archive</span><span class="font-body-sm text-body-sm text-secondary">Optional: enables ready-to-apply LaTeX patches</span></div></div></div><div class="p-space-sm rounded-lg bg-white border border-outline-variant flex items-start justify-between gap-space-sm shadow-sm"><div class="flex flex-col gap-space-2xs"><span class="font-body-sm text-body-sm font-semibold text-on-surface">Bypass vision cache</span><span class="font-body-sm text-body-sm text-secondary">Forces fresh Gemma 4 calls so you can see multi-node fan-out.</span></div><input class="mt-1 h-4 w-4 rounded bg-white border-outline text-primary focus:ring-0 focus:outline-none" type="checkbox"/></div><div class="flex flex-col gap-space-xs"><div class="flex items-center justify-between"><span class="font-label-caps text-label-caps uppercase text-secondary font-semibold">Vision Cluster Telemetry</span><span class="font-code-sm text-code-sm text-tertiary font-bold">4 Nodes</span></div><div class="flex flex-col gap-space-2xs bg-white border border-outline-variant p-space-sm rounded-lg shadow-sm"><div class="flex items-center justify-between py-space-2xs border-b border-outline-variant/60"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-tertiary"></span><span class="font-code-sm text-code-sm text-on-surface font-semibold">Host</span><span class="font-code-sm text-code-sm text-secondary">(12b-it-qat)</span></div><span class="font-code-sm text-code-sm text-on-surface-variant font-medium">48 calls</span></div><div class="flex items-center justify-between py-space-2xs border-b border-outline-variant/60"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-tertiary"></span><span class="font-code-sm text-code-sm text-on-surface font-semibold">Worker 1</span><span class="font-code-sm text-code-sm text-secondary">(e4b-it)</span></div><span class="font-code-sm text-code-sm text-on-surface-variant font-medium">32 calls</span></div><div class="flex items-center justify-between py-space-2xs border-b border-outline-variant/60"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-tertiary"></span><span class="font-code-sm text-code-sm text-on-surface font-semibold">Worker 2</span><span class="font-code-sm text-code-sm text-secondary">(e4b-it)</span></div><span class="font-code-sm text-code-sm text-on-surface-variant font-medium">29 calls</span></div><div class="flex items-center justify-between py-space-2xs"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-error"></span><span class="font-code-sm text-code-sm text-error font-semibold">Worker 3</span><span class="font-code-sm text-code-sm text-error/70">(failover)</span></div><span class="font-code-sm text-code-sm text-error font-medium">0 calls</span></div></div></div><div class="flex flex-col gap-space-sm pt-space-xs"><button class="w-full py-space-sm px-space-md rounded-lg bg-primary text-white font-headline-sm text-headline-sm font-semibold hover:bg-primary/90 transition-all shadow flex items-center justify-center gap-space-xs" type="button"><span class="material-symbols-outlined text-[20px]">play_arrow</span>Run audit</button><button class="w-full py-space-sm px-space-md rounded-lg bg-white border border-outline hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm transition-colors text-center shadow-sm" type="button">Load sample paper</button></div></div><div class="pt-space-md flex flex-col gap-space-sm"><nav class="flex flex-col gap-space-2xs" data-active-classes="bg-surface-container-high text-on-surface font-bold"><a class="px-space-sm py-space-xs rounded-lg text-primary font-semibold bg-primary/10 transition-colors font-body-sm text-body-sm flex items-center justify-between" data-path="inspection-canvas" href="#"><span>Inspection Canvas</span><span class="w-1.5 h-1.5 rounded-full bg-primary"></span></a><a class="px-space-sm py-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="diagnostic-matrix" href="#">Diagnostic Matrix</a><a class="px-space-sm py-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="cluster-telemetry" href="#">Cluster Telemetry</a><a class="px-space-sm py-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="compliance-presets" href="#">Compliance Presets</a></nav><div class="inline-flex items-center gap-space-xs px-space-sm py-space-2xs rounded-full bg-tertiary-container/40 text-on-tertiary-container border border-tertiary/20 font-code-sm text-code-sm"><span class="material-symbols-outlined text-[16px]">lock</span>100% local. External requests: 0</div></div></aside><div class="pl-80"><header class="fixed top-0 left-80 right-0 h-16 bg-surface border-b border-outline-variant z-40 flex items-center justify-between px-space-xl"><div class="flex items-center gap-space-md"><img alt="DeskReject Guard Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR4Zx_JsHxC-xobs8x8AFrnBC3vGmh5BXQCvCqGng9hdT14PtRW7Dp-7c7WZSAO7Mi6E6QL35G1AyC5_8SMr98Uqx8leEkSeIqqQt3cpeBKnYzMELPjk-oA5DN2Srgg_TqtbCI1A6MSpEot3Fey5bd-8Ad5ZTFmzwR9TXwo_8PDnGwu1ZshVo2kBKKRCAdY2pN47OUauemAxbt3Ppqsm9uNcE1i8KaZdYbExN_ZHI"/><span class="font-headline-md text-headline-md text-on-surface tracking-tight font-bold">DeskReject Guard</span><nav class="hidden md:flex items-center gap-space-xs ml-space-lg" data-active-classes="bg-surface-container-high text-on-surface font-bold"><a class="text-body-sm font-body-sm text-primary font-semibold bg-primary/10 px-space-sm py-space-xs rounded-lg transition-colors" data-path="inspection-canvas" href="#">Inspector</a><a class="text-body-sm font-body-sm text-on-surface-variant hover:text-on-surface px-space-sm py-space-xs rounded-lg transition-colors hover:bg-surface-container" data-path="diagnostic-matrix" href="#">Diagnostics</a><a class="text-body-sm font-body-sm text-on-surface-variant hover:text-on-surface px-space-sm py-space-xs rounded-lg transition-colors hover:bg-surface-container" data-path="cluster-telemetry" href="#">Nodes</a><a class="text-body-sm font-body-sm text-on-surface-variant hover:text-on-surface px-space-sm py-space-xs rounded-lg transition-colors hover:bg-surface-container" data-path="compliance-presets" href="#">Venues</a></nav></div><div class="flex items-center gap-space-md"><div class="w-8 h-8 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[18px]">person</span></div></div></header><main class="w-full pt-16 bg-surface"><div class="flex flex-col w-full">
+<!-- Sub-Header Workspace Tabs & Metadata Ribbon -->
+<div class="px-space-xl pt-space-md pb-space-sm bg-surface-container-low border-b border-outline-variant">
+<div class="flex flex-col gap-space-md">
+<!-- Tabs Bar -->
+<div class="flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-xs overflow-x-auto">
+<button class="relative px-space-md py-space-xs rounded-lg bg-white border border-outline-variant text-primary font-headline-sm text-headline-sm flex items-center gap-space-xs shadow-sm">
+<span class="material-symbols-outlined text-[18px]">layers</span>
+<span>Page overlays</span>
+<span class="ml-space-2xs px-space-xs py-space-2xs rounded-full bg-primary/15 text-primary font-code-sm text-code-sm font-bold">4</span>
+<span class="absolute -bottom-[9px] left-3 right-3 h-0.5 bg-primary rounded-full"></span>
+</button>
+<button class="px-space-md py-space-xs rounded-lg hover:bg-white text-on-surface-variant hover:text-on-surface font-body-md text-body-md transition-colors flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px]">rule</span>
+<span>Findings</span>
+<span class="ml-space-2xs px-space-xs py-space-2xs rounded-full bg-surface-container-highest text-secondary font-code-sm text-code-sm">19</span>
+</button>
+<button class="px-space-md py-space-xs rounded-lg hover:bg-white text-on-surface-variant hover:text-on-surface font-body-md text-body-md transition-colors flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px]">image</span>
+<span>Figures</span>
+<span class="ml-space-2xs px-space-xs py-space-2xs rounded-full bg-surface-container-highest text-secondary font-code-sm text-code-sm">5</span>
+</button>
+<button class="px-space-md py-space-xs rounded-lg hover:bg-white text-on-surface-variant hover:text-on-surface font-body-md text-body-md transition-colors flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px]">difference</span>
+<span>LaTeX Patches</span>
+<span class="ml-space-2xs px-space-xs py-space-2xs rounded-full bg-tertiary-container text-on-tertiary-container font-code-sm text-code-sm font-bold">8 ready</span>
+</button>
+<button class="px-space-md py-space-xs rounded-lg hover:bg-white text-on-surface-variant hover:text-on-surface font-body-md text-body-md transition-colors flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+<span>Run Log</span>
+</button>
+</div>
+<!-- Telemetry Summary Pill Bar -->
+<div class="flex items-center gap-space-sm bg-white border border-outline-variant px-space-md py-space-xs rounded-full shadow-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[16px]">picture_as_pdf</span>
+<span class="font-code-md text-code-md text-on-surface font-medium">bad_paper.pdf</span>
+</div>
+<span class="w-1 h-3 rounded-full bg-outline-variant"></span>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-caps text-label-caps text-secondary uppercase font-semibold">Desk-Reject Risk</span>
+<span class="px-space-xs py-space-2xs rounded bg-error-container text-on-error-container font-code-sm text-code-sm font-bold">HIGH (92/100)</span>
+</div>
+<span class="w-1 h-3 rounded-full bg-outline-variant"></span>
+<div class="flex items-center gap-space-xs font-code-sm text-code-sm">
+<span class="text-error font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-error"></span>13 Fatal</span>
+<span class="text-outline">·</span>
+<span class="text-secondary font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>6 Warn</span>
+</div>
+<span class="w-1 h-3 rounded-full bg-outline-variant"></span>
+<div class="flex items-center gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
+<span class="text-primary font-semibold">Page 1 of 4</span>
+<span class="text-secondary">(3 Fatal Flags)</span>
+</div>
+</div>
+</div>
+<!-- Action Strip: Page Thumbnails, Viewport Zoom, Legend -->
+<div class="flex flex-wrap items-center justify-between gap-space-md pt-space-xs">
+<!-- Thumbnails Strip -->
+<div class="flex items-center gap-space-sm">
+<button class="flex items-center gap-space-xs p-space-xs rounded-lg bg-white border-2 border-primary shadow-sm transition-transform hover:scale-[1.02]">
+<div class="w-7 h-9 rounded bg-slate-50 border border-outline-variant flex flex-col justify-between p-1 relative shadow-inner">
+<div class="w-4 h-1 bg-slate-400 rounded-full"></div>
+<div class="flex items-center justify-end gap-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+</div>
+</div>
+<div class="flex flex-col text-left pr-space-xs">
+<span class="font-headline-sm text-[12px] text-primary font-bold">Page 1</span>
+<span class="font-code-sm text-[10px] text-error font-bold">3 fatal</span>
+</div>
+</button>
+<button class="flex items-center gap-space-xs p-space-xs rounded-lg bg-white border border-outline-variant hover:border-outline transition-colors shadow-sm">
+<div class="w-7 h-9 rounded bg-slate-50 border border-outline-variant flex flex-col justify-between p-1 relative">
+<div class="w-5 h-1 bg-slate-300 rounded-full"></div>
+<div class="flex items-center justify-end gap-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+</div>
+</div>
+<div class="flex flex-col text-left pr-space-xs">
+<span class="font-body-sm text-[12px] text-on-surface-variant font-medium">Page 2</span>
+<span class="font-code-sm text-[10px] text-secondary">1 fatal · 1 warn</span>
+</div>
+</button>
+<button class="flex items-center gap-space-xs p-space-xs rounded-lg bg-white border border-outline-variant hover:border-outline transition-colors shadow-sm">
+<div class="w-7 h-9 rounded bg-slate-50 border border-outline-variant flex flex-col justify-between p-1 relative">
+<div class="w-3 h-1 bg-slate-300 rounded-full"></div>
+<div class="flex items-center justify-end gap-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+</div>
+</div>
+<div class="flex flex-col text-left pr-space-xs">
+<span class="font-body-sm text-[12px] text-on-surface-variant font-medium">Page 3</span>
+<span class="font-code-sm text-[10px] text-secondary">1 fatal</span>
+</div>
+</button>
+<button class="flex items-center gap-space-xs p-space-xs rounded-lg bg-white border border-outline-variant hover:border-outline transition-colors shadow-sm">
+<div class="w-7 h-9 rounded bg-slate-50 border border-outline-variant flex flex-col justify-between p-1 relative">
+<div class="w-4 h-1 bg-slate-300 rounded-full"></div>
+<div class="flex items-center justify-end gap-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+</div>
+</div>
+<div class="flex flex-col text-left pr-space-xs">
+<span class="font-body-sm text-[12px] text-on-surface-variant font-medium">Page 4</span>
+<span class="font-code-sm text-[10px] text-secondary">1 fatal · 2 warn</span>
+</div>
+</button>
+<!-- Prev / Next Page controls -->
+<div class="flex items-center gap-space-2xs bg-white border border-outline-variant p-space-2xs rounded-lg ml-space-xs shadow-sm">
+<button class="p-space-2xs rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface" title="Previous page (Left arrow)">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<span class="font-code-sm text-code-sm px-space-xs text-on-surface font-semibold">1 / 4</span>
+<button class="p-space-2xs rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface" title="Next page (Right arrow)">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Controls: Zoom, Display Toggles, Legend -->
+<div class="flex flex-wrap items-center gap-space-md">
+<!-- Zoom segmented -->
+<div class="flex items-center bg-white border border-outline-variant p-space-2xs rounded-lg font-code-sm text-code-sm shadow-sm">
+<button class="px-space-xs py-space-2xs rounded text-on-surface-variant hover:text-on-surface hover:bg-slate-50">100%</button>
+<button class="px-space-xs py-space-2xs rounded text-on-surface-variant hover:text-on-surface hover:bg-slate-50">150%</button>
+<button class="px-space-xs py-space-2xs rounded bg-primary/10 text-primary font-bold">200% (2x)</button>
+<button class="px-space-xs py-space-2xs rounded text-on-surface-variant hover:text-on-surface hover:bg-slate-50 ml-space-2xs" title="Fit Width">
+<span class="material-symbols-outlined text-[14px]">fit_screen</span>
+</button>
+</div>
+<!-- Bounding Boxes Toggle -->
+<label class="flex items-center gap-space-xs cursor-pointer select-none bg-white border border-outline-variant px-space-sm py-space-xs rounded-lg hover:border-outline shadow-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">highlight_alt</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Overlay Bounding Boxes</span>
+<span class="ml-space-2xs w-2 h-2 rounded-full bg-primary animate-ping"></span>
+</label>
+<!-- Severity Legend -->
+<div class="flex items-center gap-space-sm font-label-caps text-label-caps text-on-surface-variant px-space-sm py-space-xs bg-white border border-outline-variant rounded-lg shadow-sm">
+<span class="flex items-center gap-1 text-error font-bold"><span class="w-2 h-2 rounded-full bg-error"></span>FATAL</span>
+<span class="flex items-center gap-1 text-amber-600 font-bold"><span class="w-2 h-2 rounded-full bg-amber-500"></span>WARN</span>
+<span class="flex items-center gap-1 text-primary font-bold"><span class="w-2 h-2 rounded-full bg-primary"></span>INFO</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Split Inspection Workspace (Left ~65% canvas, Right ~35% diagnostic drawer) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 w-full gap-0 min-h-[calc(100vh-160px)]">
+<!-- Left Canvas Area (col-span-8 / ~67%) -->
+<div class="lg:col-span-8 bg-[#f1f5f9] relative p-space-xl flex flex-col items-center justify-start overflow-y-auto">
+<!-- Grid pattern ambiance container -->
+<div class="absolute inset-0 opacity-40 pointer-events-none bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:16px_16px]"></div>
+<!-- Floating Canvas Info HUD -->
+<div class="sticky top-0 z-30 flex items-center justify-between w-full max-w-[820px] mb-space-md">
+<div class="flex items-center gap-space-xs px-space-sm py-space-2xs rounded-full bg-white/95 backdrop-blur-md border border-outline-variant shadow-sm">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-code-sm text-code-sm text-on-surface font-semibold">Viewport: 200% Native Render</span>
+<span class="text-outline font-code-sm text-code-sm">·</span>
+<span class="font-code-sm text-code-sm text-secondary">NeurIPS Format (Letter 8.5" × 11")</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-sm py-space-2xs rounded bg-white/95 backdrop-blur border border-outline-variant text-on-surface-variant hover:text-on-surface text-body-sm font-body-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">open_in_full</span> Expand
+          </button>
+<button class="px-space-sm py-space-2xs rounded bg-white/95 backdrop-blur border border-outline-variant text-on-surface-variant hover:text-on-surface text-body-sm font-body-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">print</span>
+</button>
+</div>
+</div>
+<!-- Rendered High-Fidelity Paper Page (Letter Proportions) -->
+<div class="relative w-full max-w-[820px] bg-white text-[#111827] rounded-sm border border-outline shadow-xl p-12 transition-all select-none">
+<!-- Overlay Layer Container (Absolute coordinates mapped directly over LaTeX elements) -->
+<!-- Bounding Box #2: Author Block -->
+<div class="absolute top-[128px] left-[70px] right-[70px] h-[34px] rounded bg-error/10 border-2 border-error z-20 cursor-pointer group transition-all hover:bg-error/20">
+<div class="absolute -top-3.5 left-2 flex items-center gap-1 bg-[#ef4444] text-white px-2 py-0.5 rounded-full shadow text-[10px] font-mono font-bold tracking-tight">
+<span class="material-symbols-outlined text-[12px]">cancel</span>
+<span>#2 ANON_AUTHOR_BLOCK</span>
+</div>
+<!-- Popover Hint Badge -->
+<div class="absolute -bottom-7 left-2 hidden group-hover:flex items-center gap-1 bg-white text-on-surface px-2.5 py-1 rounded shadow-lg border border-outline text-[11px] font-mono z-30 whitespace-nowrap">
+<span class="text-error font-bold">Violation:</span> Author identities disclosed prior to review.
+          </div>
+</div>
+<!-- Bounding Box #3: Author Institutional Email -->
+<div class="absolute top-[166px] left-[150px] right-[150px] h-[28px] rounded bg-error/10 border-2 border-error z-20 cursor-pointer group transition-all hover:bg-error/20">
+<div class="absolute -top-3.5 left-2 flex items-center gap-1 bg-[#ef4444] text-white px-2 py-0.5 rounded-full shadow text-[10px] font-mono font-bold tracking-tight">
+<span class="material-symbols-outlined text-[12px]">cancel</span>
+<span>#3 ANON_EMAIL</span>
+</div>
+<div class="absolute -bottom-7 left-2 hidden group-hover:flex items-center gap-1 bg-white text-on-surface px-2.5 py-1 rounded shadow-lg border border-outline text-[11px] font-mono z-30 whitespace-nowrap">
+<span class="text-error font-bold">Evidence:</span> jane.rao@example-univ.edu
+          </div>
+</div>
+<!-- Bounding Box #4: Affiliation Disclosed -->
+<div class="absolute top-[198px] left-[100px] right-[100px] h-[30px] rounded bg-error/10 border-2 border-error z-20 cursor-pointer group transition-all hover:bg-error/20">
+<div class="absolute -top-3.5 left-2 flex items-center gap-1 bg-[#ef4444] text-white px-2 py-0.5 rounded-full shadow text-[10px] font-mono font-bold tracking-tight">
+<span class="material-symbols-outlined text-[12px]">cancel</span>
+<span>#4 ANON_AFFILIATION</span>
+</div>
+<div class="absolute -bottom-7 left-2 hidden group-hover:flex items-center gap-1 bg-white text-on-surface px-2.5 py-1 rounded shadow-lg border border-outline text-[11px] font-mono z-30 whitespace-nowrap">
+<span class="text-error font-bold">Evidence:</span> Department of CSE, Example University
+          </div>
+</div>
+<!-- Realistic Academic Paper Typesetting -->
+<div class="flex flex-col items-center text-center mb-8">
+<!-- Conference Banner Placeholder -->
+<span class="text-[10px] font-mono tracking-widest uppercase text-gray-500 mb-4">Under review for 38th Conference on Neural Information Processing Systems (NeurIPS 2024)</span>
+<!-- Paper Title -->
+<h1 class="text-[20px] leading-[26px] font-serif font-bold text-gray-900 tracking-tight max-w-[620px] uppercase">
+            Representation Drift in Self-Supervised Agents Under Latent Dynamics
+          </h1>
+<!-- Author Block (Marked with Violations) -->
+<div class="mt-4 flex flex-col items-center gap-0.5 text-gray-800">
+<p class="font-serif font-medium text-[13px] tracking-wide text-gray-900">
+              Jane Rao<sup>1</sup>            Arjun Mehta<sup>1, 2</sup>
+</p>
+<p class="font-mono text-[11px] text-gray-600">
+              {jane.rao, a.mehta}@example-univ.edu
+            </p>
+<p class="font-serif italic text-[11px] text-gray-600">
+<sup>1</sup>Department of Computer Science &amp; Engineering, Example University     <sup>2</sup>Acrobat AI Labs
+            </p>
+</div>
+</div>
+<!-- Abstract Block -->
+<div class="px-8 mb-8">
+<div class="text-center font-serif font-bold text-[12px] uppercase tracking-wider mb-2 text-gray-900">Abstract</div>
+<p class="font-serif text-[11px] leading-[17px] text-justify text-gray-700">
+            Self-supervised representations frequently undergo catastrophic semantic drift when deployed in non-stationary POMDPs. In this paper, we formalize representation drift under stochastic latent transitions by bounding the Hausdorff discrepancy between consecutive temporal projection spaces. We evaluate empirical trajectories against standard contrastive benchmarks, revealing an asymptotic divergence threshold of <span class="font-mono text-[10px]">ε &gt; 0.28</span>. Furthermore, we construct an adaptive projection manifold that prevents manifold collapse under partial observability.
+          </p>
+</div>
+<!-- Two Column LaTeX Layout Simulation -->
+<div class="grid grid-cols-2 gap-8 text-[10.5px] leading-[15px] font-serif text-justify text-gray-800">
+<!-- Column 1 -->
+<div class="flex flex-col gap-3">
+<h2 class="font-serif font-bold text-[12px] uppercase tracking-tight text-gray-900 mb-0.5">1   Introduction</h2>
+<p>
+              Contemporary foundation models increasingly rely on continuous state representations learned through mutual information maximization. While effective in static benchmark distributions, autonomous multi-step decision agents must maintain spatial consistency despite systemic latency.
+            </p>
+<p>
+              Previous formulations assume either bounded distribution shift or immediate reward feedback. In contrast, double-blind pre-training across uncurated sensory streams introduces non-ergodic drifts. As shown in Theorem 1, the projection manifold undergoes rank degradation proportionally to sensory variance.
+            </p>
+<h2 class="font-serif font-bold text-[12px] uppercase tracking-tight text-gray-900 mt-2 mb-0.5">2   Problem Formulation</h2>
+<p>
+              Let <span class="font-mono text-[9.5px]">M = (S, A, T, R, γ)</span> denote a continuous Markov Decision Process. An encoder <span class="font-mono text-[9.5px]">f_θ : S → R^d</span> maps observations into an embedding metric. We define drift metric <span class="font-mono text-[9.5px]">Δ_t</span> as the spectral distance between the push-forward measure and stationary target.
+            </p>
+<div class="bg-gray-100 p-2 rounded text-center font-mono text-[10px] text-gray-800 my-1 border border-gray-200">
+              L_drift(θ) = E_{s_t, s_{t+1}} [ || f_θ(s_{t+1}) - W f_θ(s_t) ||_2^2 ]
+            </div>
+<p>
+              Where <span class="font-mono text-[9.5px]">W</span> represents an isometric rotation matrix parameterized via orthogonal projection constraints.
+            </p>
+</div>
+<!-- Column 2 -->
+<div class="flex flex-col gap-3">
+<p>
+              To circumvent empirical collapse, common heuristics apply exponential moving averages (EMA) to target parameters. However, in Theorem 2 we illustrate that moving target encodings fail to prevent drift when noise components align with primary singular vectors.
+            </p>
+<p>
+              Our contributions are three-fold:
+            </p>
+<ul class="list-disc pl-4 space-y-1 text-gray-700">
+<li>A non-asymptotic lower bound on representation degeneration under unobserved Markovian confounders.</li>
+<li>A projection regularizer guaranteeing manifold volume preservation with linear runtime complexity.</li>
+<li>Empirical validation on DeepMind Control Suite, demonstrating a 34% reduction in semantic drift without auxiliary supervision.</li>
+</ul>
+<h2 class="font-serif font-bold text-[12px] uppercase tracking-tight text-gray-900 mt-2 mb-0.5">3   Theoretical Bounds</h2>
+<p>
+              Under standard Lipshitz continuity assumptions on environmental transition dynamics, the divergence between successive latent manifolds obeys the recurrence inequality:
+            </p>
+<div class="bg-gray-100 p-2 rounded text-center font-mono text-[10px] text-gray-800 my-1 border border-gray-200">
+              || Φ_t - Φ_0 ||_F ≤ Σ_{k=1}^t (1 - λ_min(K))^k · ε_latent
+            </div>
+<p>
+              Where <span class="font-mono text-[9.5px]">K</span> denotes the normalized Gram matrix computed across batch observations and <span class="font-mono text-[9.5px]">ε_latent</span> is the stochastic perturbation radius.
+            </p>
+</div>
+</div>
+<!-- Page Footer -->
+<div class="mt-8 pt-4 border-t border-gray-200 flex items-center justify-between text-gray-500 font-mono text-[9px]">
+<span>DeskReject Guard Inspection Layer · NeurIPS 2024 Template</span>
+<span>1</span>
+</div>
+</div>
+<!-- Quick Page Jumper Cards Ribbon (Bottom Floating Nav) -->
+<div class="sticky bottom-4 z-20 mt-space-lg flex items-center gap-space-sm bg-white/95 backdrop-blur-md border border-outline-variant px-space-md py-space-xs rounded-full shadow-lg">
+<span class="font-label-caps text-label-caps text-secondary uppercase font-semibold">Next Pages with Fatal Flags:</span>
+<button class="flex items-center gap-1.5 px-space-xs py-1 rounded bg-slate-50 hover:bg-slate-100 border border-outline-variant text-on-surface font-body-sm text-body-sm transition-colors">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span>P2: Fig 1 panel (d) unref (#7)</span>
+<span class="material-symbols-outlined text-[14px] text-primary">arrow_forward</span>
+</button>
+<button class="flex items-center gap-1.5 px-space-xs py-1 rounded bg-slate-50 hover:bg-slate-100 border border-outline-variant text-on-surface font-body-sm text-body-sm transition-colors">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span>P3: Fig 3 lab crest (#6)</span>
+<span class="material-symbols-outlined text-[14px] text-primary">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Right Column: Diagnostic Findings & Action Drawer (~33%) -->
+<div class="lg:col-span-4 bg-surface-container-low border-l border-outline-variant flex flex-col justify-between">
+<!-- Header of Findings -->
+<div class="p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-sm border-b border-outline-variant">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-error text-[20px]">error</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Page 1 Findings</span>
+<span class="px-space-xs py-space-2xs rounded-full bg-error-container text-on-error-container font-code-sm text-code-sm font-bold">3 Fatal Flags</span>
+</div>
+<button class="p-space-2xs rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Front-matter contains explicit anonymity breaches. In double-blind tracks, identity leaks trigger immediate administrative desk rejection before reviewer assignment.
+        </p>
+<!-- Findings List for Page 1 -->
+<div class="flex flex-col gap-space-sm overflow-y-auto max-h-[calc(100vh-380px)] pr-1">
+<!-- Finding 1: Author Block (#2) -->
+<div class="p-space-md rounded-lg bg-white border border-outline-variant border-l-4 border-l-error shadow-sm flex flex-col gap-space-xs">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-space-2xs rounded bg-error-container text-on-error-container font-code-sm text-code-sm font-bold">#2 FATAL</span>
+<span class="font-code-sm text-code-sm text-secondary">ANON_AUTHOR_BLOCK</span>
+</div>
+<button class="text-primary hover:text-primary/80 flex items-center gap-0.5 font-code-sm text-code-sm font-semibold" title="Locate on Canvas">
+<span class="material-symbols-outlined text-[16px]">visibility</span> Focus
+              </button>
+</div>
+<div class="font-headline-sm text-[14px] text-on-surface font-semibold">
+              Author names appear in front matter
+            </div>
+<div class="bg-slate-50 border border-outline-variant p-space-xs rounded font-code-sm text-code-sm text-on-surface flex items-center justify-between">
+<span class="truncate text-error font-medium">Jane Rao, Arjun Mehta</span>
+<span class="material-symbols-outlined text-[14px] text-secondary cursor-pointer hover:text-on-surface">content_copy</span>
+</div>
+<div class="p-space-xs rounded bg-tertiary-container/30 border border-tertiary/20 text-on-tertiary-container font-body-sm text-body-sm flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-tertiary shrink-0 mt-0.5">auto_fix_high</span>
+<span><strong>LaTeX Fix:</strong> Replace with <code class="font-code-sm text-emerald-700 bg-white px-1 py-0.5 rounded border border-emerald-200">\author{Anonymous Authors}</code> or pass <code class="font-code-sm text-emerald-700 bg-white px-1 py-0.5 rounded border border-emerald-200">[final=false]</code> to the neurips package.</span>
+</div>
+</div>
+<!-- Finding 2: Institutional Email (#3) -->
+<div class="p-space-md rounded-lg bg-white border border-outline-variant border-l-4 border-l-error shadow-sm flex flex-col gap-space-xs">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-space-2xs rounded bg-error-container text-on-error-container font-code-sm text-code-sm font-bold">#3 FATAL</span>
+<span class="font-code-sm text-code-sm text-secondary">ANON_EMAIL</span>
+</div>
+<button class="text-primary hover:text-primary/80 flex items-center gap-0.5 font-code-sm text-code-sm font-semibold" title="Locate on Canvas">
+<span class="material-symbols-outlined text-[16px]">visibility</span> Focus
+              </button>
+</div>
+<div class="font-headline-sm text-[14px] text-on-surface font-semibold">
+              Author institutional email visible
+            </div>
+<div class="bg-slate-50 border border-outline-variant p-space-xs rounded font-code-sm text-code-sm text-on-surface flex items-center justify-between">
+<span class="truncate text-error font-medium">{jane.rao, a.mehta}@example-univ.edu</span>
+<span class="material-symbols-outlined text-[14px] text-secondary cursor-pointer hover:text-on-surface">content_copy</span>
+</div>
+<div class="p-space-xs rounded bg-tertiary-container/30 border border-tertiary/20 text-on-tertiary-container font-body-sm text-body-sm flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-tertiary shrink-0 mt-0.5">auto_fix_high</span>
+<span><strong>LaTeX Fix:</strong> Comment out or conditionally suppress <code class="font-code-sm text-emerald-700 bg-white px-1 py-0.5 rounded border border-emerald-200">\texttt{...}</code> in blind mode.</span>
+</div>
+</div>
+<!-- Finding 3: Affiliation Disclosed (#4) -->
+<div class="p-space-md rounded-lg bg-white border border-outline-variant border-l-4 border-l-error shadow-sm flex flex-col gap-space-xs">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-space-2xs rounded bg-error-container text-on-error-container font-code-sm text-code-sm font-bold">#4 FATAL</span>
+<span class="font-code-sm text-code-sm text-secondary">ANON_AFFILIATION</span>
+</div>
+<button class="text-primary hover:text-primary/80 flex items-center gap-0.5 font-code-sm text-code-sm font-semibold" title="Locate on Canvas">
+<span class="material-symbols-outlined text-[16px]">visibility</span> Focus
+              </button>
+</div>
+<div class="font-headline-sm text-[14px] text-on-surface font-semibold">
+              Department affiliation disclosed
+            </div>
+<div class="bg-slate-50 border border-outline-variant p-space-xs rounded font-code-sm text-code-sm text-on-surface flex items-center justify-between">
+<span class="truncate text-error font-medium">Department of CSE, Example University</span>
+<span class="material-symbols-outlined text-[14px] text-secondary cursor-pointer hover:text-on-surface">content_copy</span>
+</div>
+<div class="p-space-xs rounded bg-tertiary-container/30 border border-tertiary/20 text-on-tertiary-container font-body-sm text-body-sm flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-tertiary shrink-0 mt-0.5">auto_fix_high</span>
+<span><strong>LaTeX Fix:</strong> Omit address/affiliation blocks until camera-ready revisions.</span>
+</div>
+</div>
+<!-- Other Pages Quick Jumper Mini-List -->
+<div class="pt-space-sm flex flex-col gap-space-xs">
+<span class="font-label-caps text-label-caps text-secondary uppercase font-semibold">Upcoming Violations in Queue</span>
+<div class="p-space-xs rounded bg-white border border-outline-variant hover:border-outline flex items-center justify-between cursor-pointer transition-colors shadow-sm">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="w-1.5 h-1.5 rounded-full bg-error shrink-0"></span>
+<span class="font-body-sm text-body-sm text-on-surface truncate">Page 2 · Fig 1 panel (d) unreferenced</span>
+</div>
+<span class="font-code-sm text-code-sm text-secondary">#7</span>
+</div>
+<div class="p-space-xs rounded bg-white border border-outline-variant hover:border-outline flex items-center justify-between cursor-pointer transition-colors shadow-sm">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="w-1.5 h-1.5 rounded-full bg-error shrink-0"></span>
+<span class="font-body-sm text-body-sm text-on-surface truncate">Page 3 · Fig 3 lab crest / logo watermark</span>
+</div>
+<span class="font-code-sm text-code-sm text-secondary">#6</span>
+</div>
+<div class="p-space-xs rounded bg-white border border-outline-variant hover:border-outline flex items-center justify-between cursor-pointer transition-colors shadow-sm">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="w-1.5 h-1.5 rounded-full bg-error shrink-0"></span>
+<span class="font-body-sm text-body-sm text-on-surface truncate">Page 4 · Non-anonymized GitHub repo URL</span>
+</div>
+<span class="font-code-sm text-code-sm text-secondary">#5</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Sticky Action Dock -->
+<div class="p-space-lg bg-surface border-t border-outline-variant flex flex-col gap-space-xs">
+<div class="grid grid-cols-2 gap-space-xs">
+<button class="py-space-sm px-space-xs rounded-lg bg-white border border-outline hover:bg-slate-50 text-on-surface font-body-sm text-body-sm font-medium flex items-center justify-center gap-space-xs transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Export Overlay PDF</span>
+</button>
+<button class="py-space-sm px-space-xs rounded-lg bg-primary text-white font-headline-sm text-[13px] font-semibold hover:bg-primary/90 flex items-center justify-center gap-space-xs transition-opacity shadow-sm">
+<span>Next Violation (#7)</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<div class="flex items-center justify-between pt-space-2xs text-secondary font-code-sm text-code-sm">
+<span>Keyboard: [N] Next finding · [P] Prev page</span>
+<span class="text-tertiary font-medium">All 4 nodes synced</span>
+</div>
+</div>
+</div>
+</div>
+</div></main></div></body></html>
