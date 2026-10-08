@@ -1,14 +1,16 @@
+import base64
 import sys
 import time
-import base64
-import httpx
 from io import BytesIO
+from pathlib import Path
+
+import httpx
 from PIL import Image, ImageDraw
 
-from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 from deskreject.config import settings
+
 
 def create_test_image():
     img = Image.new("RGB", (256, 256), color="white")
@@ -44,7 +46,7 @@ def check_endpoint(ep, is_host=False):
                 base_model = ep.model.split(":")[0]
                 if any(m.startswith(base_model) for m in model_names):
                     result["model_present"] = True
-    except Exception:
+    except Exception:  # noqa: BLE001
         return result
 
     try:
@@ -59,7 +61,7 @@ def check_endpoint(ep, is_host=False):
         result["first_call_s"] = round(t1 - t0, 2)
         if r.status_code == 200:
             result["text_ok"] = True
-    except Exception:
+    except Exception:  # noqa: BLE001, S110
         pass
         
     img_b64 = create_test_image()
@@ -82,7 +84,7 @@ def check_endpoint(ep, is_host=False):
         result["second_call_s"] = round(t1 - t0, 2)
         if r.status_code == 200:
             result["vision_ok"] = True
-    except Exception:
+    except Exception:  # noqa: BLE001, S110
         pass
         
     return result
@@ -97,8 +99,8 @@ def main():
         is_host = (i == 0)
         res = check_endpoint(ep, is_host)
         
-        print(f"{res['endpoint']:<30} | {str(res['reachable']):<10} | {str(res['model_present']):<10} | "
-              f"{str(res['text_ok']):<10} | {str(res['vision_ok']):<10} | {res['first_call_s']:<8} | {res['second_call_s']:<8}")
+        print(f"{res['endpoint']:<30} | {res['reachable']!s:<10} | {res['model_present']!s:<10} | "
+              f"{res['text_ok']!s:<10} | {res['vision_ok']!s:<10} | {res['first_call_s']:<8} | {res['second_call_s']:<8}")
         
         if is_host and res["reachable"]:
             host_ok = True
