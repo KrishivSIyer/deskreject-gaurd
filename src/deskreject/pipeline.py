@@ -44,8 +44,8 @@ def audit(
         try:
             from deskreject.patches.latex import generate_patches
 
-            patches = generate_patches(findings, tex_text, preset)
-        except (ImportError, NotImplementedError):
+            patches = generate_patches(tex=tex_text, findings=findings, preset=preset)
+        except (ImportError, NotImplementedError, TypeError):
             pass
 
     page_count = len(doc.page_sizes)

@@ -190,3 +190,72 @@ def generate_patches(tex: str, findings: list[Finding], preset: Preset) -> list[
                 tex = new_tex
                 
     return patches
+
+
+def apply_patches(tex: str, findings: list[Finding], preset: Preset) -> str:
+    """Applies all matching finding patches sequentially to LaTeX source and returns patched text."""
+    keys = {f.patch_key for f in findings if f.patch_key}
+
+    # 1. anon_class
+    if "anon_class" in keys and preset.latex and preset.latex.class_options_add:
+        match = re.search(r"\\documentclass(?:\[(.*?)\])?\{(.*?)\}", tex)
+        if match:
+            old = match.group(0)
+            existing_opts = match.group(1)
+            cls_name = match.group(2)
+            opts_to_add = ",".join(preset.latex.class_options_add)
+            new_opts = existing_opts + "," + opts_to_add if existing_opts else opts_to_add
+            tex = tex.replace(old, f"\\documentclass[{new_opts}]{{{cls_name}}}")
+
+    # 2. anon_author
+    if "anon_author" in keys and preset.latex:
+        tex = replace_balanced_braces(tex, "\\author", preset.latex.author_placeholder)
+
+    # 3. anon_url
+    if "anon_url" in keys and preset.latex:
+        url_evidence = [f.evidence for f in findings if f.patch_key == "anon_url" and f.evidence]
+        for ev in url_evidence:
+            tex = tex.replace(ev, preset.latex.anonymous_repo_url)
+
+    # 4. anon_ack
+    if "anon_ack" in keys:
+        lines = tex.splitlines(keepends=True)
+        new_lines = []
+        in_ack = False
+        for line in lines:
+            if re.search(r"\\section\*?\{Acknowledgements?\}", line, re.IGNORECASE):
+                in_ack = True
+                new_lines.append("% " + line)
+                continue
+            if in_ack:
+                if line.strip() == "" or line.startswith(("\\section", "\\begin")):
+                    in_ack = False
+                    new_lines.append(line)
+                else:
+                    new_lines.append("% " + line)
+            else:
+                new_lines.append(line)
+        tex = "".join(new_lines)
+
+    # 5. add_statement:<id>
+    stmt_keys = [k for k in keys if k.startswith("add_statement:")]
+    if stmt_keys:
+        for k in stmt_keys:
+            stmt_id = k.split(":")[1]
+            title = stmt_id.replace("_", " ").title()
+            template = f"\n\\section*{{{title}}}\n[Add {title} here]\n\n"
+            match = re.search(r"\\begin\{thebibliography\}|\\bibliography\{", tex)
+            if match:
+                idx = match.start()
+                tex = tex[:idx] + template + tex[idx:]
+
+    # 6. fig_width
+    if "fig_width" in keys:
+        tex = re.sub(
+            r"\\includegraphics\[width=[^\]]+\]",
+            r"\\includegraphics[width=\\columnwidth]",
+            tex,
+        )
+
+    return tex
+

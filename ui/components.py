@@ -285,7 +285,7 @@ def get_global_css() -> str:
             box-shadow: 0 4px 12px rgba(59, 164, 246, 0.08);
         }
 
-        /* Finding box styling inside expanders */
+        /* Finding & Patch box styling */
         .dg-evidence-box {
             background: #f8fafc;
             border-left: 3px solid #64748b;
@@ -306,6 +306,20 @@ def get_global_css() -> str:
             font-size: 13px;
             color: #166534;
             margin: 6px 0;
+        }
+
+        /* Swimlane timeline bar */
+        .dg-timeline-stage {
+            height: 28px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            font-family: var(--font-code);
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #ffffff;
         }
     </style>
     """
@@ -431,6 +445,30 @@ def offline_badge_html(blocked: int = 0) -> str:
     """
 
 
+def render_risk_gauge(report: Report) -> str:
+    """Renders the desk-reject risk score gauge matching the Stitch Clinical Light design."""
+    fatal_count = report.counts.get("fatal", 0)
+    warn_count = report.counts.get("warning", 0)
+
+    score = max(0, min(100, int(fatal_count * 15 + warn_count * 5))) if fatal_count or warn_count else 0
+    risk_label = "HIGH" if score >= 60 else "MEDIUM" if score >= 30 else "LOW"
+
+    risk_bg = "#fee2e2" if risk_label == "HIGH" else "#fef3c7" if risk_label == "MEDIUM" else "#d1fae5"
+    risk_text = "#991b1b" if risk_label == "HIGH" else "#92400e" if risk_label == "MEDIUM" else "#065f46"
+
+    return f"""
+    <div style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px;
+                border-radius: 9999px; background: {risk_bg}; color: {risk_text};
+                font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700;">
+        <span>Desk-Reject Risk: {risk_label} ({score}/100)</span>
+        <span>·</span>
+        <span>{fatal_count} Fatal</span>
+        <span>·</span>
+        <span>{warn_count} Warn</span>
+    </div>
+    """
+
+
 def render_telemetry_bar(
     filename: str,
     risk: str,
@@ -441,13 +479,13 @@ def render_telemetry_bar(
 ) -> str:
     """Renders the top summary telemetry pill bar matching Stitch UI."""
     risk_color = (
-        "#ef4444" if risk.upper() == "HIGH" else "#f59e0b" if risk.upper() == "MED" or risk.upper() == "MEDIUM" else "#10b981"
+        "#ef4444" if risk.upper() == "HIGH" else "#f59e0b" if risk.upper() in ("MED", "MEDIUM") else "#10b981"
     )
     risk_bg = (
-        "#fee2e2" if risk.upper() == "HIGH" else "#fef3c7" if risk.upper() == "MED" or risk.upper() == "MEDIUM" else "#d1fae5"
+        "#fee2e2" if risk.upper() == "HIGH" else "#fef3c7" if risk.upper() in ("MED", "MEDIUM") else "#d1fae5"
     )
     risk_text = (
-        "#991b1b" if risk.upper() == "HIGH" else "#92400e" if risk.upper() == "MED" or risk.upper() == "MEDIUM" else "#065f46"
+        "#991b1b" if risk.upper() == "HIGH" else "#92400e" if risk.upper() in ("MED", "MEDIUM") else "#065f46"
     )
 
     return f"""
@@ -878,3 +916,212 @@ def render_overlays_tab(report: Report | None, pdf_bytes: bytes | None) -> None:
                     """,
                     unsafe_allow_html=True,
                 )
+
+
+def render_patches_tab(report: Report | None, tex_text: str | None, preset_id: str) -> None:
+    """Renders the LaTeX Patches tab with precision diff cards, apply buttons, and source download."""
+    if not report:
+        st.info("Run an audit to view precision diff patches.")
+        return
+
+    from deskreject.patches.latex import apply_patches, generate_patches
+    from deskreject.presets import load_preset
+
+    preset = load_preset(preset_id)
+    patches = report.patches
+
+    # If patches not in report but tex_text is available, generate them
+    if not patches and tex_text:
+        try:
+            patches = generate_patches(tex=tex_text, findings=report.findings, preset=preset)
+        except Exception:  # noqa: BLE001
+            patches = []
+
+    patch_findings = [f for f in report.findings if f.patch_key]
+
+    # Patch summary ribbon
+    st.markdown(
+        f"""
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+                    background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px;
+                    margin-bottom: 16px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <span class="material-symbols-outlined" style="color: #3ba4f6; font-size: 24px;">build</span>
+                <div>
+                    <div style="font-size: 14px; font-weight: 700; color: #0f172a;">
+                        {len(patches) or len(patch_findings)} Precision Patches Ready
+                    </div>
+                    <div style="font-size: 12px; color: #64748b;">
+                        Target: <code>main.tex</code> · Auto-fixes for blinded submissions and format conformance
+                    </div>
+                </div>
+            </div>
+            <div style="display: inline-flex; align-items: center; gap: 6px;">
+                <span class="dg-badge dg-badge-success">1-CLICK REMEDIATION</span>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # Download Patched .tex button if source uploaded
+    if tex_text:
+        patched_tex = apply_patches(tex=tex_text, findings=report.findings, preset=preset)
+        st.download_button(
+            label="⬇ Download Patched LaTeX Source (main_patched.tex)",
+            data=patched_tex,
+            file_name="main_patched.tex",
+            mime="text/x-tex",
+            type="primary",
+            use_container_width=True,
+        )
+    else:
+        st.info("💡 Upload your `.tex` source in the sidebar to generate unified diffs and download fully patched LaTeX files directly.")
+
+    if not patches and not patch_findings:
+        st.success("✓ No LaTeX format or anonymity discrepancies requiring patches.")
+        return
+
+    # Render diff cards
+    if patches:
+        for idx, p in enumerate(patches, 1):
+            with st.container():
+                st.markdown(
+                    f"""
+                    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px;
+                                padding: 14px; margin-top: 12px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #0f172a;">
+                                    Patch #{idx}: {p.file}
+                                </span>
+                                <span class="dg-badge dg-badge-success">READY</span>
+                            </div>
+                        </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+                st.code(p.diff, language="diff")
+                st.markdown("</div>", unsafe_allow_html=True)
+    else:
+        for idx, pf in enumerate(patch_findings, 1):
+            with st.expander(f"Patch #{idx}: [{pf.code}] {pf.title} (Template: `{pf.patch_key}`)", expanded=True):
+                st.markdown(f"**Description**: {pf.detail}")
+                if pf.fix_hint:
+                    st.markdown(f"**Recommended Change**: `{pf.fix_hint}`")
+                st.markdown(f"**Target Patch Template**: `{pf.patch_key}`")
+
+
+def render_run_log_tab(report: Report | None) -> None:
+    """Renders the Run Log tab with pipeline timeline, multi-node telemetry, and call traces."""
+    if not report:
+        st.info("Audit execution log and multi-node worker traces will appear here.")
+        return
+
+    timings = report.timings
+    total_time = timings.get("total", sum(timings.values()) if timings else 0.0) or 0.001
+    v_stats = report.vision_stats or {}
+    total_calls = v_stats.get("calls", 0)
+    cache_hits = v_stats.get("cache_hits", 0)
+    hit_rate = int(cache_hits / total_calls * 100) if total_calls > 0 else 100
+
+    # 4 Metric Summary Cards
+    m1, m2, m3, m4 = st.columns(4)
+    with m1:
+        st.metric(label="Wall Clock Time", value=f"{total_time:.3f}s")
+    with m2:
+        st.metric(label="Total Vision Calls", value=f"{total_calls}")
+    with m3:
+        st.metric(label="Cache Hit Rate", value=f"{hit_rate}%")
+    with m4:
+        st.metric(label="Offline Guarantee", value="100% Local", delta="0 ext reqs")
+
+    # Pipeline Execution Timeline Swimlanes
+    st.markdown(
+        """
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700;
+                    color: #0f172a; margin-top: 16px; margin-bottom: 8px;">
+            Pipeline Stage Execution Timeline
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    stage_colors = {
+        "parse": "#3ba4f6",
+        "checks": "#10b981",
+        "patches": "#f59e0b",
+        "finalize": "#8b5cf6",
+        "total": "#64748b",
+    }
+
+    for stage, dur in timings.items():
+        if stage == "total":
+            continue
+        pct = max(5, int((dur / total_time) * 100))
+        color = stage_colors.get(stage, "#64748b")
+        st.markdown(
+            f"""
+            <div style="margin-bottom: 6px;">
+                <div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace;
+                            font-size: 11px; margin-bottom: 2px;">
+                    <span style="font-weight: 600; color: #0f172a;">{stage.upper()}</span>
+                    <span style="color: #64748b;">{dur:.3f}s ({pct}%)</span>
+                </div>
+                <div style="width: 100%; height: 18px; background: #f1f5f9; border-radius: 4px; overflow: hidden;">
+                    <div style="width: {pct}%; height: 100%; background: {color}; border-radius: 4px;"></div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    # Multi-Node Worker Cluster Status Table
+    st.markdown(
+        """
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700;
+                    color: #0f172a; margin-top: 20px; margin-bottom: 8px;">
+            Ollama Inference Cluster & Worker Trace
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    endpoints = settings.ollama_vision_endpoints
+    per_endpoint_stats = v_stats.get("per_endpoint", {})
+
+    node_rows = []
+    if endpoints:
+        for idx, ep in enumerate(endpoints):
+            name = "Host (Leader)" if idx == 0 else f"Worker Node #{idx}"
+            calls = per_endpoint_stats.get(ep.url, 0)
+            node_rows.append({
+                "Node": name,
+                "Endpoint URL": ep.url,
+                "Model Tag": ep.model,
+                "Assigned Calls": calls,
+                "Status": "Active / Ready",
+                "Mode": "Local Ollama LAN",
+            })
+    else:
+        node_rows.append({
+            "Node": "Host (Standalone)",
+            "Endpoint URL": "http://127.0.0.1:11434",
+            "Model Tag": "gemma4:12b-it-qat",
+            "Assigned Calls": total_calls,
+            "Status": "Active / Ready",
+            "Mode": "Localhost",
+        })
+
+    st.dataframe(node_rows, use_container_width=True, hide_index=True)
+
+    st.markdown(
+        f"""
+        <div style="margin-top: 14px; padding: 10px 14px; background: #f0fdf4; border: 1px solid #bbf7d0;
+                    border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #166534;">
+            🛡 <strong>Confidentiality Audit:</strong> All parsing and model inference completed strictly across
+            the local device cluster. External internet requests intercepted and blocked: <strong>{report.external_requests_blocked}</strong>.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )

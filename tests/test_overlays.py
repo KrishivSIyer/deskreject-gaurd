@@ -4,12 +4,15 @@ from pathlib import Path
 
 from PIL import Image
 
-from deskreject.models import Finding, Severity
+from deskreject.models import Finding, Report, Severity
+from deskreject.patches.latex import apply_patches
+from deskreject.presets import load_preset
 from ui.components import (
     cluster_telemetry_html,
     get_global_css,
     offline_badge_html,
     pil_to_base64,
+    render_risk_gauge,
     render_telemetry_bar,
     render_top_header,
 )
@@ -111,6 +114,66 @@ def test_ui_components_html_generators():
     assert "HIGH (85/100)" in telemetry_bar
     assert "3 Fatal" in telemetry_bar
 
+    # Test risk gauge
+    mock_report = Report(
+        preset="neurips-style-double-blind",
+        file_name="test.pdf",
+        page_count=8,
+        findings=[],
+        risk="HIGH",
+        counts={"fatal": 5, "warning": 2, "info": 0},
+        timings={"parse": 0.1, "checks": 0.2, "total": 0.3},
+        vision_stats={"calls": 4, "cache_hits": 2, "failures": 0, "per_endpoint": {}},
+        external_requests_blocked=0,
+    )
+    gauge_html = render_risk_gauge(mock_report)
+    assert "Desk-Reject Risk: HIGH" in gauge_html
+    assert "5 Fatal" in gauge_html
+
     # Test base64 encoding
     b64 = pil_to_base64(Image.new("RGB", (10, 10), color=(255, 255, 255)))
     assert b64.startswith("data:image/png;base64,")
+
+
+def test_apply_patches_helper():
+    """Verify apply_patches generates modified LaTeX source."""
+    tex_path = Path("samples/bad_paper.tex")
+    if not tex_path.exists():
+        return
+
+    original_tex = tex_path.read_text(encoding="utf-8")
+    preset = load_preset("neurips-style-double-blind")
+
+    findings = [
+        Finding(
+            code="ANON_CLASS",
+            check="anon",
+            severity=Severity.fatal,
+            title="",
+            detail="",
+            patch_key="anon_class",
+        ),
+        Finding(
+            code="ANON_AUTHOR",
+            check="anon",
+            severity=Severity.fatal,
+            title="",
+            detail="",
+            patch_key="anon_author",
+        ),
+        Finding(
+            code="ANON_URL",
+            check="anon",
+            severity=Severity.fatal,
+            title="",
+            detail="",
+            patch_key="anon_url",
+            evidence="https://github.com/rao-lab/deskproject",
+        ),
+    ]
+
+    patched = apply_patches(original_tex, findings, preset)
+    assert patched != original_tex
+    assert "anonymous" in patched
+    assert "Anonymous Authors" in patched or preset.latex.author_placeholder in patched
+    assert preset.latex.anonymous_repo_url in patched

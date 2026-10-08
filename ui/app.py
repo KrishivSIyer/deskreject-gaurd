@@ -14,6 +14,8 @@ from ui.components import (
     render_figures_tab,
     render_findings_tab,
     render_overlays_tab,
+    render_patches_tab,
+    render_run_log_tab,
     render_telemetry_bar,
     render_top_header,
 )
@@ -234,14 +236,14 @@ if report:
         )
     with export_col:
         st.download_button(
-            label="Export Report",
+            label="Export Report (JSON)",
             data=report.model_dump_json(indent=2),
             file_name=f"deskreject_report_{filename}.json",
             mime="application/json",
             use_container_width=True,
         )
 
-# Navigation Tabs (Phase 2 Live Wire)
+# Navigation Tabs (Phase 3 Full Integration)
 tab_overlays, tab_findings, tab_figures, tab_patches, tab_run_log = st.tabs(
     ["Page overlays", "Findings", "Figures", "LaTeX Patches", "Run Log"]
 )
@@ -256,37 +258,7 @@ with tab_figures:
     render_figures_tab(report, st.session_state.pdf_bytes)
 
 with tab_patches:
-    st.markdown("### LaTeX Patches")
-    if not report:
-        st.info("Run an audit with optional .tex source to view and apply precision fixes.")
-    elif report.patches:
-        st.markdown(f"**{len(report.patches)} precision patches generated:**")
-        for p in report.patches:
-            with st.expander(f"Patch: {p.title} ({p.key})"):
-                st.code(p.diff, language="diff")
-    else:
-        patch_findings = [f for f in report.findings if f.patch_key]
-        if patch_findings:
-            st.markdown(f"**{len(patch_findings)} findings have automated patch templates ready:**")
-            for pf in patch_findings:
-                st.markdown(f"- **[{pf.code}]** {pf.title} (Patch template: `{pf.patch_key}`)")
-        else:
-            st.info("No LaTeX patches required for the reported findings.")
+    render_patches_tab(report, st.session_state.tex_text, st.session_state.preset_id)
 
 with tab_run_log:
-    st.markdown("### Execution & Telemetry Log")
-    if not report:
-        st.info("Audit execution log and multi-node worker traces will appear here.")
-    else:
-        t_col1, t_col2 = st.columns(2)
-        with t_col1:
-            st.markdown("#### Pipeline Stage Timings")
-            for stage, dur in report.timings.items():
-                st.markdown(f"- **{stage.capitalize()}**: `{dur:.3f}s`")
-        with t_col2:
-            st.markdown("#### Vision Inference Telemetry")
-            v_stats = report.vision_stats
-            st.markdown(f"- **Total Vision Calls**: `{v_stats.get('calls', 0)}`")
-            st.markdown(f"- **Cache Hits**: `{v_stats.get('cache_hits', 0)}`")
-            st.markdown(f"- **Failures**: `{v_stats.get('failures', 0)}`")
-            st.markdown(f"- **External Requests Blocked**: `{report.external_requests_blocked}` (100% offline)")
+    render_run_log_tab(report)
