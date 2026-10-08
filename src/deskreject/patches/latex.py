@@ -1,8 +1,6 @@
 import difflib
 import re
 
-from pydantic import BaseModel
-
 from deskreject.models import Finding, Patch
 from deskreject.presets import Preset
 
