@@ -39,7 +39,7 @@ def make_doc(headings_text=None, blocks_text=None) -> ParsedDoc:
 def test_missing_statements():
     preset = load_preset("neurips-style-double-blind")
     doc = make_doc()
-    findings = run_statements(doc, preset, Context())
+    findings = run_statements(doc, preset, Context(vision=None))
     codes = [f.code for f in findings]
     assert "STMT_MISSING_DATA_AVAILABILITY" in codes
     assert "STMT_MISSING_CONFLICT_OF_INTEREST" in codes
@@ -51,7 +51,7 @@ def test_found_statements():
         headings_text=["Data Availability", "Conflict of Interest", "AI disclosure", "References"],
         blocks_text=["Data is available.", "No conflict.", "We used an LLM.", "Ref 1", "Ref 2"]
     )
-    findings = run_statements(doc, preset, Context())
+    findings = run_statements(doc, preset, Context(vision=None))
     codes = [f.code for f in findings]
     assert "STMT_MISSING_DATA_AVAILABILITY" not in codes
     assert "STMT_MISSING_CONFLICT_OF_INTEREST" not in codes
@@ -66,7 +66,7 @@ def test_misplaced_statements():
         headings_text=["References"],
         blocks_text=["Ref 1", "Ref 2", "Data availability statement here.", "Conflict of interest here.", "We used an LLM."]
     )
-    findings = run_statements(doc, preset, Context())
+    findings = run_statements(doc, preset, Context(vision=None))
     codes = [f.code for f in findings]
     # They should be found but misplaced
     assert "STMT_MISPLACED_DATA_AVAILABILITY" in codes

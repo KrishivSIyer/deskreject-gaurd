@@ -1,6 +1,6 @@
-import re
 
 from deskreject.checks.base import Context, register_check
+from deskreject.ingest.mentions import find_mentions
 from deskreject.models import Finding, ParsedDoc, Severity
 from deskreject.presets import Preset
 
@@ -12,25 +12,28 @@ class SequencingCheck:
     def run(self, doc: ParsedDoc, preset: Preset, ctx: Context) -> list[Finding]:
         findings: list[Finding] = []
         
-        # We need to process Figures and Tables separately.
-        # But first, we handle `??` unresolved refs everywhere.
-        unresolved_regex = re.compile(r"(Fig(?:ure)?s?\.?|Tables?)\s*\?\?", re.IGNORECASE)
-        for block in doc.blocks:
-            for match in unresolved_regex.finditer(block.text):
+        # If doc.mentions is empty, parse it here
+        mentions = doc.mentions
+        if not mentions and doc.blocks:
+            mentions = find_mentions(doc.blocks, doc.captions, doc.references_start)
+
+        # Handle `??` unresolved refs everywhere (number=0)
+        for mention in mentions:
+            if mention.number == 0:
                 findings.append(Finding(
                     code="SEQ_UNRESOLVED_REF",
                     check=self.name,
                     severity=Severity.fatal,
                     title="Unresolved reference",
                     detail="A literal '??' was found where a reference should be.",
-                    page=block.page,
-                    bbox=block.bbox,
-                    evidence=match.group(0)
+                    page=mention.page,
+                    bbox=mention.bbox,
+                    evidence="??"
                 ))
 
         for kind in ["figure", "table"]:
-            # Gather all body mentions (not in caption, not after references)
-            body_mentions = [m for m in doc.mentions if m.kind == kind and not m.in_caption and not m.after_references]
+            # Gather all body mentions (not in caption, not after references, ignoring number 0)
+            body_mentions = [m for m in mentions if m.kind == kind and not m.in_caption and not m.after_references and m.number > 0]
             
             # 1. First-mention order
             if preset.sequencing.require_in_order:

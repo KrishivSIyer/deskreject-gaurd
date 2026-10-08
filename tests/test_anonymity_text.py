@@ -56,55 +56,55 @@ def test_anonymity_text_disabled():
     preset = load_preset("neurips-style-double-blind")
     preset.anonymous = False
     doc = make_doc(metadata={"author": "John Doe"})
-    findings = run_anonymity_text(doc, preset, Context())
+    findings = run_anonymity_text(doc, preset, Context(vision=None))
     assert len(findings) == 0
 
 def test_anon_metadata_author():
     preset = load_preset("neurips-style-double-blind")
     doc = make_doc(metadata={"author": "John Doe"})
-    findings = run_anonymity_text(doc, preset, Context())
+    findings = run_anonymity_text(doc, preset, Context(vision=None))
     codes = [f.code for f in findings]
     assert "ANON_METADATA_AUTHOR" in codes
 
 def test_anon_author_block():
     preset = load_preset("neurips-style-double-blind")
     doc = make_doc(author_text="Jane Rao")
-    findings = run_anonymity_text(doc, preset, Context())
+    findings = run_anonymity_text(doc, preset, Context(vision=None))
     codes = [f.code for f in findings]
     assert "ANON_AUTHOR_BLOCK" in codes
 
 def test_anon_email():
     preset = load_preset("neurips-style-double-blind")
     doc = make_doc(blocks_text=["Contact us at jane.rao@example.edu for info."])
-    findings = run_anonymity_text(doc, preset, Context())
+    findings = run_anonymity_text(doc, preset, Context(vision=None))
     codes = [f.code for f in findings]
     assert "ANON_EMAIL" in codes
 
 def test_anon_affiliation():
     preset = load_preset("neurips-style-double-blind")
     doc = make_doc(author_text="Example University")
-    findings = run_anonymity_text(doc, preset, Context())
+    findings = run_anonymity_text(doc, preset, Context(vision=None))
     codes = [f.code for f in findings]
     assert "ANON_AFFILIATION" in codes
 
 def test_anon_repo_url():
     preset = load_preset("neurips-style-double-blind")
     doc = make_doc(links=["https://github.com/rao-lab/deskproject"])
-    findings = run_anonymity_text(doc, preset, Context())
+    findings = run_anonymity_text(doc, preset, Context(vision=None))
     codes = [f.code for f in findings]
     assert "ANON_REPO_URL" in codes
 
 def test_anon_self_cite():
     preset = load_preset("neurips-style-double-blind")
     doc = make_doc(blocks_text=["In our previous work [3], we introduced..."])
-    findings = run_anonymity_text(doc, preset, Context())
+    findings = run_anonymity_text(doc, preset, Context(vision=None))
     codes = [f.code for f in findings]
     assert "ANON_SELF_CITE" in codes
 
 def test_anon_ack():
     preset = load_preset("neurips-style-double-blind")
     doc = make_doc(headings=["Acknowledgements"])
-    findings = run_anonymity_text(doc, preset, Context())
+    findings = run_anonymity_text(doc, preset, Context(vision=None))
     codes = [f.code for f in findings]
     assert "ANON_ACK" in codes
 
@@ -117,5 +117,5 @@ def test_clean_paper():
         links=["https://anonymous.4open.science/r/ANON"],
         headings=["Introduction"]
     )
-    findings = run_anonymity_text(doc, preset, Context())
+    findings = run_anonymity_text(doc, preset, Context(vision=None))
     assert len(findings) == 0
