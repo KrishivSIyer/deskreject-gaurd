@@ -128,6 +128,8 @@ The application runs locally to maintain strict privacy for confidential academi
 
 **Demo Video:** [[Video URL]](https://youtu.be/DSh-tXXG-Z8)
 
+
+
 ## Open Source and AI Usage
 
 ### AI / Models
@@ -198,6 +200,7 @@ python -m deskreject audit samples/bad_paper.pdf --preset neurips-style-double-b
 ```
 
 ### Usage
+We have hosted it on https://deskreject-guarder.streamlit.app/
 
 1. Open the Streamlit web dashboard in your browser (`http://localhost:8501`).
 2. Choose a venue preset from the sidebar (e.g., `neurips-style-double-blind` or `ieee-journal`).
