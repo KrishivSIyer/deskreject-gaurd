@@ -993,7 +993,7 @@ def render_patches_tab(report: Report | None, tex_text: str | None, preset_id: s
                         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
                             <div style="display: flex; align-items: center; gap: 8px;">
                                 <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #0f172a;">
-                                    Patch #{idx}: {p.file}
+                                    Patch #{idx}: {p.title}
                                 </span>
                                 <span class="dg-badge dg-badge-success">READY</span>
                             </div>
