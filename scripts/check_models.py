@@ -31,14 +31,14 @@ def check_endpoint(ep, is_host=False):
         "first_call_s": 0.0,
         "second_call_s": 0.0,
     }
-    
+
     try:
         r = client.get(f"{ep.url}/api/tags")
         if r.status_code == 200:
             result["reachable"] = True
             tags = r.json().get("models", [])
             model_names = [m.get("name") for m in tags]
-            
+
             # Simple match
             if any(ep.model in m for m in model_names):
                 result["model_present"] = True
@@ -63,13 +63,19 @@ def check_endpoint(ep, is_host=False):
             result["text_ok"] = True
     except Exception:  # noqa: BLE001, S110
         pass
-        
+
     img_b64 = create_test_image()
     try:
         t0 = time.time()
         payload = {
             "model": ep.model,
-            "messages": [{"role": "user", "content": "What is the text in the image?", "images": [img_b64]}],
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "What is the text in the image?",
+                    "images": [img_b64],
+                }
+            ],
             "stream": False,
             "format": {
                 "type": "object",
@@ -86,28 +92,35 @@ def check_endpoint(ep, is_host=False):
             result["vision_ok"] = True
     except Exception:  # noqa: BLE001, S110
         pass
-        
+
     return result
 
 def main():
-    print(f"{'Endpoint':<30} | {'Reachable':<10} | {'Model':<10} | {'Text OK':<10} | {'Vision OK':<10} | {'T1 (s)':<8} | {'T2 (s)':<8}")
+    print(
+        f"{'Endpoint':<30} | {'Reachable':<10} | {'Model':<10} | "
+        f"{'Text OK':<10} | {'Vision OK':<10} | {'T1 (s)':<8} | {'T2 (s)':<8}"
+    )
     print("-" * 115)
-    
+
     host_ok = False
-    
+
     for i, ep in enumerate(settings.ollama_vision_endpoints):
         is_host = (i == 0)
         res = check_endpoint(ep, is_host)
-        
-        print(f"{res['endpoint']:<30} | {res['reachable']!s:<10} | {res['model_present']!s:<10} | "
-              f"{res['text_ok']!s:<10} | {res['vision_ok']!s:<10} | {res['first_call_s']:<8} | {res['second_call_s']:<8}")
-        
+
+        print(
+            f"{res['endpoint']:<30} | {res['reachable']!s:<10} | "
+            f"{res['model_present']!s:<10} | {res['text_ok']!s:<10} | "
+            f"{res['vision_ok']!s:<10} | {res['first_call_s']:<8} | "
+            f"{res['second_call_s']:<8}"
+        )
+
         if is_host and res["reachable"]:
             host_ok = True
 
     if not host_ok:
         print("ERROR: Host endpoint failed to connect.")
         sys.exit(1)
-        
+
 if __name__ == "__main__":
     main()

@@ -1,0 +1,1 @@
+# Figure-caption parity check

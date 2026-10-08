@@ -36,3 +36,6 @@ node_modules/
 .pytest_cache/
 htmlcov/
 .coverage
+
+# Ruff
+.ruff_cache/
