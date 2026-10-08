@@ -7,7 +7,7 @@ from deskreject.models import Finding, ParsedDoc, Preset
 
 
 class Context(BaseModel):
-    vision: object | None
+    vision: object | None = None
     use_cache: bool = True
     tex: str | None = None
     # plus logger and settings handles

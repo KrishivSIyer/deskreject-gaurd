@@ -14,7 +14,7 @@ class OllamaVisionClient:
 
     def __init__(self, endpoint: Endpoint, client: httpx.Client | None = None) -> None:
         self.endpoint = endpoint
-        self.client = client or make_client(settings, timeout=settings.vision_timeout_s)
+        self.client = client or make_client(settings)
 
     def chat(self, image_png: bytes, prompt: str, schema: dict, timeout: int = 90) -> dict:
         """Send an image to Ollama and return the parsed JSON response."""
