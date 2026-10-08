@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | v1, 2026-10-08 |
+| Status | v2, 2026-10-08 — updated after M0/M1 review |
 | Team | Four developers: Lane A (Sibi Chakravarthi), Lane B (Karthik MG), Lane C (Krishiv S Iyer), Lane D (Aditya Vineeth), each working with Antigravity agents |
 | Deadline | Hack Day submission closes 4:30 PM. **Feature freeze 3:15 PM. Submit by 4:10 PM.** |
 | Related | [`deskreject_guard_product_specification.md`](deskreject_guard_product_specification.md), [`../AGENTS.md`](../AGENTS.md) (text to paste is in §8) |
@@ -494,6 +494,64 @@ flowchart LR
 | **D** | Samples, UI, docs, demo | T0.4, T1.8, T2.3, T2.4, T4.1, T4.2 |
 
 Dependencies that matter: T0.3 (contracts) unblocks everyone, so A does it first and pushes within 15 minutes. D's T0.4 (samples) is the fixed target everyone tests against, but nobody waits on it because the seeded flaws are listed in [§4](#4-contracts-and-data-model).
+
+---
+
+## 5a. Progress Snapshot (updated 2026-10-08)
+
+> This section is updated by agents after reviewing the actual codebase. It reflects what is **done**, **partial (stub only)**, or **not started** based on file content, not intent.
+
+### Current milestone status
+
+| Milestone | Status | Blocking gap |
+|---|---|---|
+| **M0 Foundation** | ✅ **Complete** | — |
+| **M1 Ingest + core checks** | 🟡 **Partial** — checks coded, ingest is stubs | `parse.py`, `mentions.py`, `figures.py`, `render.py` are all empty stubs; pipeline not wired up |
+| **M2 Figures + vision + overlays** | ❌ Not started | Depends on M1 ingest |
+| **M3 P1 extras + eval** | ❌ Not started | — |
+| **M4 Freeze + submit** | ❌ Not started | — |
+
+### Task-level status
+
+| Task | Status | Evidence |
+|---|---|---|
+| **T0.1** Scaffold the repo | ✅ Done | Folder tree, `requirements.txt`, `pyproject.toml`, `LICENSE`, `.env.example` all present |
+| **T0.2** Models and endpoints check | ✅ Done | `scripts/check_models.py` — full implementation: `/api/tags`, text call, vision call with structured output, prints table |
+| **T0.3** Contracts and presets | ✅ Done | `models.py` — all types from §4 implemented; `presets.py` loads YAML; `checks/base.py` has `Context`, `Check` protocol and `register_check`; both preset YAMLs present; `tests/test_models.py` present |
+| **T0.4** Synthetic papers | ✅ Done | `samples/make_samples.py` (13 KB), `bad_paper.pdf`, `clean_paper.pdf`, `bad_paper.tex`, `expected.json` all present; `tests/test_samples.py` present |
+| **T0.5** Pipeline shell, CLI and netguard | ✅ Done | `netguard.py` — `make_client`, `BlockedHost`, `blocked_count` implemented; `pipeline.py` — stub returning valid empty `Report`; `__main__.py` present; `tests/test_netguard.py` present |
+| **T1.1** PDF ingest | ❌ **Stub only** | `ingest/parse.py` is 2 lines: `# PDF parsing` — **nothing implemented** |
+| **T1.2** Captions, figure regions, crops | ❌ **Stub only** | `ingest/figures.py` (46 B stub), `ingest/render.py` (37 B stub), `ingest/layout.py` (63 B stub) — all empty |
+| **T1.3** Report finalize | 🟡 **Partial** | `report.py` returns a fixed `Report` — risk always "LOW", counts always 0, no sort, no dedup, no numbering. Needs full implementation. |
+| **T1.4** Anonymity checks on text, links and metadata | ✅ Done | `checks/anonymity_text.py` — all 7 rules implemented (metadata, author block, email, affiliation, repo URL, self-cite, ack); registered via `@register_check` |
+| **T1.5** Mentions and figure/table sequencing | 🟡 **Partial** | `checks/sequencing.py` — check logic complete (out of order, orphan, ghost, gap, unresolved ref); `ingest/mentions.py` is an **empty stub** — `doc.mentions` will always be `[]` until T1.1+T1.5 ingest is done |
+| **T1.6** Statements sweeper | ✅ Done | `checks/statements.py` — all 5 statement types, heading + back-matter search, position check, `STMT_MISSING_*` / `STMT_MISPLACED_*` findings; registered |
+| **T1.7** Vision client, pool and cache | ❌ **Stub only** | `vision/pool.py` (48 B), `vision/client.py` (24 B), `vision/cache.py` (23 B), `vision/prompts.py` (30 B), `vision/schemas.py` (45 B) — all empty stubs |
+| **T1.8** UI skeleton | ❌ **Stub only** | `ui/app.py` — 5 lines, shows only title. `ui/components.py` and `ui/overlays.py` are empty. Stitch-UI design specs are in `ui/stitch-ui/` |
+| **T2.1** Figure-to-caption parity | ❌ **Stub only** | `checks/figure_caption.py` — 2 line comment stub |
+| **T2.2** Anonymity on images | ❌ Not started | Depends on T1.7 vision pool |
+| **T2.3** Overlays | ❌ Not started | Depends on T1.8 UI and T1.2 ingest |
+| **T2.4** Dashboard polish and run log | ❌ Not started | — |
+| **T2.5** Worker fan-out | ❌ Not started | Depends on T1.7 |
+| **T2.6** Real-PDF smoke test | ❌ Not started | Depends on full M1 |
+| **T3.1** Legibility | ❌ **Stub only** | `checks/legibility.py` — 52 B stub |
+| **T3.2** LaTeX patches | ❌ Not started | `patches/` directory exists but empty |
+| **T3.3** Colorblind previews | ❌ **Stub only** | `checks/accessibility.py` — 29 B stub |
+| **T3.4** Evaluation script | ❌ Not started | `eval/` directory present but no `run_eval.py` |
+| **T4.1** README | 🟡 Partial | `README.md` present (4.5 KB) but not yet matching the full required headings |
+| **T4.2** Demo and backup | ❌ Not started | — |
+| **T4.3** Submission | ❌ Not started | — |
+
+### What to do next (priority order)
+
+1. **T1.1 PDF ingest** (Lane A) — `parse.py` + `layout.py` are completely empty. This unblocks T1.2, T1.5 (mentions), and the pipeline. **Highest priority.**
+2. **T1.7 Vision client, pool, cache** (Lane C) — all stubs; needed for T2.2 and to show multi-node in the demo.
+3. **T1.3 Report finalize** (Lane A) — current stub always returns LOW/0; needs sort, deduplicate, number, risk compute.
+4. **T1.2 Captions, figure regions, crops** (Lane A) — stubs; needed for T2.1 figure parity and T2.3 overlays.
+5. **T1.5 Mentions** (Lane B) — `mentions.py` is empty; sequencing check already written but cannot run until mentions are populated.
+6. **T1.8 UI skeleton** (Lane D) — only shows title; Stitch-UI design files are ready in `ui/stitch-ui/` and can be used as reference.
+7. **T2.1 Figure-caption parity** (Lane B) — check stub only; needs `caption_panel_refs` and label extraction.
+8. Then M2 tasks in order: T2.2, T2.3, T2.4, T2.5.
 
 ---
 
