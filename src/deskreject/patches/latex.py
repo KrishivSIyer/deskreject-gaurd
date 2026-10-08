@@ -3,13 +3,11 @@ import re
 
 from pydantic import BaseModel
 
-from deskreject.models import Finding
+from deskreject.models import Finding, Patch
 from deskreject.presets import Preset
 
 
-class Patch(BaseModel):
-    file: str
-    diff: str
+
 
 def replace_balanced_braces(tex: str, cmd: str, replacement: str) -> str:
     """Finds cmd{...} with balanced braces and replaces the whole thing."""
@@ -75,7 +73,7 @@ def generate_patches(tex: str, findings: list[Finding], preset: Preset) -> list[
                 tofile="main.tex"
             ))
             if diff:
-                patches.append(Patch(file="main.tex", diff=diff))
+                patches.append(Patch(key="anon_class", title="Anonymize Document Class", applies_to=["ANON_CLASS"], before="", after="", diff=diff))
                 tex = new_tex
 
     # 2. anon_author
@@ -89,7 +87,7 @@ def generate_patches(tex: str, findings: list[Finding], preset: Preset) -> list[
                 tofile="main.tex"
             ))
             if diff:
-                patches.append(Patch(file="main.tex", diff=diff))
+                patches.append(Patch(key="anon_author", title="Anonymize Author", applies_to=["ANON_AUTHOR_BLOCK"], before="", after="", diff=diff))
                 tex = new_tex
 
     # 3. anon_url
@@ -108,7 +106,7 @@ def generate_patches(tex: str, findings: list[Finding], preset: Preset) -> list[
                 tofile="main.tex"
             ))
             if diff:
-                patches.append(Patch(file="main.tex", diff=diff))
+                patches.append(Patch(key="anon_url", title="Anonymize URLs", applies_to=["ANON_REPO_URL"], before="", after="", diff=diff))
                 tex = new_tex
 
     # 4. anon_ack
@@ -142,7 +140,7 @@ def generate_patches(tex: str, findings: list[Finding], preset: Preset) -> list[
                 tofile="main.tex"
             ))
             if diff:
-                patches.append(Patch(file="main.tex", diff=diff))
+                patches.append(Patch(key="anon_ack", title="Anonymize Acknowledgements", applies_to=["ANON_ACK"], before="", after="", diff=diff))
                 tex = new_tex
 
     # 5. add_statement:<id>
@@ -165,7 +163,7 @@ def generate_patches(tex: str, findings: list[Finding], preset: Preset) -> list[
                     tofile="main.tex"
                 ))
                 if diff:
-                    patches.append(Patch(file="main.tex", diff=diff))
+                    patches.append(Patch(key=k, title=f"Add {title} Statement", applies_to=["STMT_MISSING_" + stmt_id.upper()], before="", after="", diff=diff))
                     tex = new_tex
 
     # 6. fig_width
@@ -186,7 +184,7 @@ def generate_patches(tex: str, findings: list[Finding], preset: Preset) -> list[
                 tofile="main.tex"
             ))
             if diff:
-                patches.append(Patch(file="main.tex", diff=diff))
+                patches.append(Patch(key="fig_width", title="Fix Figure Width", applies_to=["FIG_WIDTH"], before="", after="", diff=diff))
                 tex = new_tex
                 
     return patches

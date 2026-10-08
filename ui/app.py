@@ -3,6 +3,14 @@ import tempfile
 from pathlib import Path
 
 import streamlit as st
+import sys
+
+# Add project root and src to sys.path so modules can be resolved
+_root_dir = Path(__file__).resolve().parent.parent
+if str(_root_dir) not in sys.path:
+    sys.path.insert(0, str(_root_dir))
+if str(_root_dir / "src") not in sys.path:
+    sys.path.insert(0, str(_root_dir / "src"))
 
 from deskreject.config import settings
 from deskreject.pipeline import audit
