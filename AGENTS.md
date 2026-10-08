@@ -376,7 +376,7 @@ When asked to prepare the project for submission, prioritize correctness, reprod
   - [ ] T0.1 Scaffold the repo (A, P0)
   - [x] T0.2 Models and endpoints check (C, P0)
   - [ ] T0.3 Contracts and presets (A, P0) **push first, everyone depends on it**
-  - [ ] T0.4 Synthetic papers (D, P0)
+  - [x] T0.4 Synthetic papers (D, P0)
   - [ ] T0.5 Pipeline shell, CLI and netguard (A, P0)
 - M1
   - [ ] T1.1 PDF ingest (A, P0)

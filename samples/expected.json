@@ -1,0 +1,97 @@
+[
+    {
+        "code": "ANON_METADATA_AUTHOR",
+        "figure_id": null,
+        "priority": "P0"
+    },
+    {
+        "code": "ANON_AUTHOR_BLOCK",
+        "figure_id": null,
+        "priority": "P0"
+    },
+    {
+        "code": "ANON_EMAIL",
+        "figure_id": null,
+        "priority": "P0"
+    },
+    {
+        "code": "ANON_AFFILIATION",
+        "figure_id": null,
+        "priority": "P0"
+    },
+    {
+        "code": "ANON_REPO_URL",
+        "figure_id": null,
+        "priority": "P0"
+    },
+    {
+        "code": "ANON_SELF_CITE",
+        "figure_id": null,
+        "priority": "P0"
+    },
+    {
+        "code": "ANON_ACK",
+        "figure_id": null,
+        "priority": "P0"
+    },
+    {
+        "code": "ANON_LOGO_IN_FIGURE",
+        "figure_id": "Figure 3",
+        "priority": "P0"
+    },
+    {
+        "code": "FIG_PANEL_UNREFERENCED",
+        "figure_id": "Figure 1",
+        "priority": "P0"
+    },
+    {
+        "code": "SEQ_OUT_OF_ORDER",
+        "figure_id": null,
+        "priority": "P0"
+    },
+    {
+        "code": "SEQ_GHOST",
+        "figure_id": "Figure 4",
+        "priority": "P0"
+    },
+    {
+        "code": "SEQ_ORPHAN_REF",
+        "figure_id": "Figure 7",
+        "priority": "P0"
+    },
+    {
+        "code": "SEQ_UNRESOLVED_REF",
+        "figure_id": null,
+        "priority": "P0"
+    },
+    {
+        "code": "STMT_MISSING_DATA_AVAILABILITY",
+        "figure_id": null,
+        "priority": "P0"
+    },
+    {
+        "code": "STMT_MISSING_CONFLICT_OF_INTEREST",
+        "figure_id": null,
+        "priority": "P0"
+    },
+    {
+        "code": "STMT_MISSING_AI_USE",
+        "figure_id": null,
+        "priority": "P0"
+    },
+    {
+        "code": "LEG_RASTER_LOW_DPI",
+        "figure_id": "Figure 2",
+        "priority": "P1"
+    },
+    {
+        "code": "LEG_FONT_TOO_SMALL",
+        "figure_id": "Figure 4",
+        "priority": "P1"
+    },
+    {
+        "code": "ACC_CB_INDISTINGUISHABLE",
+        "figure_id": "Figure 5",
+        "priority": "P1"
+    }
+]
