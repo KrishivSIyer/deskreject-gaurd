@@ -13,6 +13,11 @@ def blocked_count() -> int:
 
 def make_client(settings, timeout=None, **kwargs) -> httpx.Client:
     allowed_hosts = [urlparse(ep.url).netloc for ep in settings.ollama_vision_endpoints]
+    if getattr(settings, "text_model", None) and "@" in settings.text_model:
+        allowed_hosts.append(urlparse(settings.text_model.split("@")[1]).netloc)
+    if getattr(settings, "coder_model", None) and "@" in settings.coder_model:
+        allowed_hosts.append(urlparse(settings.coder_model.split("@")[1]).netloc)
+
 
     def check_host(request: httpx.Request):
         global _blocked_requests
