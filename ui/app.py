@@ -47,6 +47,8 @@ st.set_page_config(
 st_markdown(get_global_css(), unsafe_allow_html=True)
 
 # Initialize Session State
+if "ai_summary" not in st.session_state:
+    st.session_state.ai_summary = None
 if "report" not in st.session_state:
     st.session_state.report = None
 if "pdf_bytes" not in st.session_state:
@@ -193,6 +195,7 @@ if load_sample_clicked:
             st.session_state.tex_text = sample_tex_path.read_text(encoding="utf-8")
 
         with st.spinner("Running pre-flight audit on sample manuscript..."):
+            st.session_state.ai_summary = None
             st.session_state.report = audit(
                 pdf_path=str(sample_pdf_path),
                 preset_id=st.session_state.preset_id,
@@ -212,6 +215,7 @@ if run_audit_clicked:
 
         try:
             with st.spinner("Running pre-flight audit..."):
+                st.session_state.ai_summary = None
                 st.session_state.report = audit(
                     pdf_path=tmp_path,
                     preset_id=st.session_state.preset_id,
