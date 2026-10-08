@@ -126,9 +126,7 @@ The application runs locally to maintain strict privacy for confidential academi
 
 ## Demo Video
 
-**Demo Video:** [Demo Video Link / Video URL]
-
-The demonstration covers uploading a manuscript, selecting double-blind conference presets, running local multi-node vision audits, reviewing visual bounding-box overlays on flagged pages, and applying generated LaTeX diff patches.
+**Demo Video:** [[Video URL]](https://youtu.be/DSh-tXXG-Z8)
 
 ## Open Source and AI Usage
 
