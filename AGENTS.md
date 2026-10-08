@@ -373,11 +373,11 @@ When asked to prepare the project for submission, prioritize correctness, reprod
 **Task index.** Full task bodies are in `docs/IMPLEMENTATION_PLAN.md` section 6. Tick your task in the same commit that finishes it. If a rebase conflicts on this list, keep every tick from both sides.
 
 - M0
-  - [ ] T0.1 Scaffold the repo (A, P0)
+  - [x] T0.1 Scaffold the repo (A, P0)
   - [x] T0.2 Models and endpoints check (C, P0)
-  - [ ] T0.3 Contracts and presets (A, P0) **push first, everyone depends on it**
+  - [x] T0.3 Contracts and presets (A, P0) **push first, everyone depends on it**
   - [x] T0.4 Synthetic papers (D, P0)
-  - [ ] T0.5 Pipeline shell, CLI and netguard (A, P0)
+  - [x] T0.5 Pipeline shell, CLI and netguard (A, P0)
 - M1
   - [ ] T1.1 PDF ingest (A, P0)
   - [ ] T1.2 Captions, figure regions, crops (A, P0)

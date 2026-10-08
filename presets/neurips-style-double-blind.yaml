@@ -1,0 +1,17 @@
+id: neurips-style-double-blind
+label: "NeurIPS-style double-blind (approximate, editable)"
+anonymous: true
+min_figure_font_pt: 7
+min_raster_dpi: {line_art: 300, photo: 150, fatal_below: 100}
+column_width_in: 3.25
+sequencing: {require_in_order: true}
+statements:                       # position: before_references | any
+  data_availability:    {required: true,  position: before_references}
+  code_availability:    {required: false, position: any}
+  conflict_of_interest: {required: true,  position: before_references}
+  ethics:               {required: false, position: any}
+  ai_use:               {required: true,  position: before_references}
+latex:
+  class_options_add: [review, anonymous]
+  author_placeholder: "Anonymous Authors"
+  anonymous_repo_url: "https://anonymous.4open.science/r/ANON"

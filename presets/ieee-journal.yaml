@@ -1,0 +1,17 @@
+id: ieee-journal
+label: "IEEE Journal"
+anonymous: false
+min_figure_font_pt: 8
+min_raster_dpi: {line_art: 300, photo: 150, fatal_below: 100}
+column_width_in: 3.25
+sequencing: {require_in_order: true}
+statements:
+  data_availability:    {required: true,  position: any}
+  code_availability:    {required: false, position: any}
+  conflict_of_interest: {required: true,  position: any}
+  ethics:               {required: true, position: any}
+  ai_use:               {required: true,  position: any}
+latex:
+  class_options_add: []
+  author_placeholder: ""
+  anonymous_repo_url: ""

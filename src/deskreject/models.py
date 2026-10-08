@@ -105,3 +105,59 @@ class ParsedDoc(BaseModel):
     mentions: list[Mention]
     front_matter: FrontMatter
     references_start: tuple[int, float] | None  # page, y of the References heading
+
+class Patch(BaseModel):
+    key: str
+    title: str
+    applies_to: list[str]   # finding codes
+    before: str
+    after: str
+    diff: str            # unified diff text
+
+class Report(BaseModel):
+    preset: str
+    file_name: str
+    page_count: int
+    findings: list[Finding]
+    risk: str                                   # LOW | MEDIUM | HIGH
+    counts: dict[str, int]                      # fatal, warning, info
+    timings: dict[str, float]                   # seconds per stage and per check
+    vision_stats: dict                          # calls, cache_hits, failures, per_endpoint
+    external_requests_blocked: int
+    figure_previews: dict[str, dict[str, str]] = {}   # figure id -> file paths
+    patches: list[Patch] = []
+
+class LegibilityPreset(BaseModel):
+    line_art: int
+    photo: int
+    fatal_below: int
+
+class StatementRule(BaseModel):
+    required: bool
+    position: str
+
+class StatementsPreset(BaseModel):
+    data_availability: StatementRule
+    code_availability: StatementRule
+    conflict_of_interest: StatementRule
+    ethics: StatementRule
+    ai_use: StatementRule
+
+class SequencingPreset(BaseModel):
+    require_in_order: bool
+
+class LatexPreset(BaseModel):
+    class_options_add: list[str]
+    author_placeholder: str
+    anonymous_repo_url: str
+
+class Preset(BaseModel):
+    id: str
+    label: str
+    anonymous: bool
+    min_figure_font_pt: float
+    min_raster_dpi: LegibilityPreset
+    column_width_in: float
+    sequencing: SequencingPreset
+    statements: StatementsPreset
+    latex: LatexPreset | None = None

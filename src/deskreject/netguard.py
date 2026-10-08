@@ -2,47 +2,27 @@ from urllib.parse import urlparse
 
 import httpx
 
-from deskreject.config import Settings
-
-_blocked_count = 0
-
 
 class BlockedHost(Exception):
-    """Raised when an HTTP request attempts to reach a non-allowlisted host."""
+    pass
 
+_blocked_requests = 0
 
 def blocked_count() -> int:
-    """Return the total number of blocked HTTP requests."""
-    return _blocked_count
+    return _blocked_requests
 
+def make_client(settings) -> httpx.Client:
+    allowed_hosts = [urlparse(ep.url).netloc for ep in settings.ollama_vision_endpoints]
 
-def _reset_blocked_count() -> None:
-    """Reset the blocked count (useful for testing)."""
-    global _blocked_count
-    _blocked_count = 0
+    def check_host(request: httpx.Request):
+        global _blocked_requests
+        req_netloc = request.url.host
+        if request.url.port:
+            req_netloc += f":{request.url.port}"
+            
+        if req_netloc not in allowed_hosts and request.url.host not in allowed_hosts:
+            _blocked_requests += 1
+            raise BlockedHost(f"Blocked request to {request.url}")
 
-
-def make_client(settings: Settings, **kwargs) -> httpx.Client:
-    """Create an httpx.Client that only allows requests to configured Ollama endpoints."""
-    
-    allowed_hosts = set()
-    for ep in settings.ollama_vision_endpoints:
-        parsed = urlparse(ep.url)
-        if parsed.hostname:
-            allowed_hosts.add(parsed.hostname)
-
-    def hook(request: httpx.Request) -> None:
-        global _blocked_count
-        if request.url.host not in allowed_hosts:
-            _blocked_count += 1
-            raise BlockedHost(f"Host {request.url.host} is not in the allowlist.")
-
-    if "event_hooks" not in kwargs:
-        kwargs["event_hooks"] = {"request": [hook]}
-    else:
-        if "request" not in kwargs["event_hooks"]:
-            kwargs["event_hooks"]["request"] = [hook]
-        else:
-            kwargs["event_hooks"]["request"].append(hook)
-
-    return httpx.Client(**kwargs)
+    client = httpx.Client(event_hooks={"request": [check_host]})
+    return client

@@ -1,1 +1,0 @@
-# Patches: LaTeX diff generation

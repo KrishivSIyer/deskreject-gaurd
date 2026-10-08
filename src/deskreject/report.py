@@ -1,12 +1,9 @@
-from typing import Any
-
-from deskreject.models import Finding, Report
+from deskreject.models import Report
 
 
-def finalize(findings: list[Finding], preset_id: str, file_name: str, page_count: int, timings: dict[str, float], vision_stats: dict[str, Any], external_requests_blocked: int) -> Report:
-    """Stub for report finalization."""
+def finalize(findings, preset, file_name, page_count, timings, vision_stats, external_requests_blocked) -> Report:
     return Report(
-        preset=preset_id,
+        preset=preset,
         file_name=file_name,
         page_count=page_count,
         findings=findings,
@@ -14,5 +11,5 @@ def finalize(findings: list[Finding], preset_id: str, file_name: str, page_count
         counts={"fatal": 0, "warning": 0, "info": 0},
         timings=timings,
         vision_stats=vision_stats,
-        external_requests_blocked=external_requests_blocked,
+        external_requests_blocked=external_requests_blocked
     )

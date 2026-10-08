@@ -1,27 +1,27 @@
+from collections.abc import Callable
 from typing import Protocol
 
 from pydantic import BaseModel
 
-from deskreject.models import Finding, ParsedDoc
-from deskreject.presets import Preset
+from deskreject.models import Finding, ParsedDoc, Preset
 
 
 class Context(BaseModel):
-    vision: object | None = None      # VisionPool or None when vision is disabled
+    vision: object | None
     use_cache: bool = True
     tex: str | None = None
-    # Settings and logger can be attached dynamically if needed
+    # plus logger and settings handles
 
 class Check(Protocol):
     name: str
-    priority: str  # P0 | P1 | P2
+    priority: str
     def run(self, doc: ParsedDoc, preset: Preset, ctx: Context) -> list[Finding]: ...
 
-_REGISTRY: list[Check] = []
+_registry: list[Callable] = []
 
-def register_check(func) -> Check:
-    _REGISTRY.append(func)
+def register_check(func: Callable) -> Callable:
+    _registry.append(func)
     return func
 
-def get_all_checks() -> list[Check]:
-    return _REGISTRY
+def get_all_checks() -> list[Callable]:
+    return _registry
