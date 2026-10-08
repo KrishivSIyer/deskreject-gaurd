@@ -2,6 +2,8 @@ from deskreject.models import Heading, TextBlock
 
 
 def detect_two_column(blocks: list[TextBlock], page_width: float, body_font_size: float) -> bool:
+    if page_width <= 0:
+        return False
     body_blocks = [b for b in blocks if abs(b.size - body_font_size) < 0.5]
     if not body_blocks:
         return False
@@ -9,7 +11,7 @@ def detect_two_column(blocks: list[TextBlock], page_width: float, body_font_size
     return (narrow_count / len(body_blocks)) >= 0.6
 
 def assign_reading_order(blocks: list[TextBlock], two_column: bool, page_width: float) -> list[TextBlock]:
-    if not two_column:
+    if not two_column or page_width <= 0:
         for b in blocks:
             b.column = 0
         return sorted(blocks, key=lambda b: (b.page, b.bbox[1], b.bbox[0]))
