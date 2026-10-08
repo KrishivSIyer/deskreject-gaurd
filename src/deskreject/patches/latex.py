@@ -5,8 +5,6 @@ from deskreject.models import Finding, Patch
 from deskreject.presets import Preset
 
 
-
-
 def replace_balanced_braces(tex: str, cmd: str, replacement: str) -> str:
     """Finds cmd{...} with balanced braces and replaces the whole thing."""
     idx = tex.find(cmd + "{")
