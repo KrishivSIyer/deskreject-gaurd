@@ -129,7 +129,7 @@ The application runs locally to maintain strict privacy for confidential academi
 **Demo Video:** [[Video URL]](https://youtu.be/DSh-tXXG-Z8)
 
 
-
+**Dev post** : https://dev.to/krishivsiyer/desk-reject-guard-1pp2
 ## Open Source and AI Usage
 
 ### AI / Models
