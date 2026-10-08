@@ -7,6 +7,13 @@ from io import BytesIO
 from typing import TYPE_CHECKING, Any
 
 import streamlit as st
+
+
+def st_markdown(body, unsafe_allow_html=False, **kwargs):
+    if unsafe_allow_html and isinstance(body, str):
+        body = "\n".join(line.lstrip() for line in body.splitlines())
+    return st.markdown(body, unsafe_allow_html=unsafe_allow_html, **kwargs)
+
 from PIL import Image
 
 from deskreject.config import Endpoint, settings
@@ -320,14 +327,28 @@ def get_global_css() -> str:
             font-weight: 600;
             margin-bottom: 8px;
             color: #ffffff;
-        }
+        /* Streamlit overrides for Clinical Light theme visibility */
+        .stTabs [data-baseweb="tab"] { color: #475569 !important; font-weight: 500 !important; }
+        .stTabs [aria-selected="true"] { color: #2563eb !important; background-color: #f8fafc !important; border-bottom: 2px solid #2563eb !important; }
+        .stAlert { color: #0f172a !important; }
+        .stAlert p { color: #0f172a !important; }
+        .stSelectbox label, .stFileUploader label { color: #0f172a !important; }
+        .stSelectbox div[data-baseweb="select"], .stFileUploader div[data-testid="stFileUploadDropzone"] { background-color: #ffffff !important; border-color: #cbd5e1 !important; color: #0f172a !important; }
     </style>
     """
 
 
-def render_top_header() -> str:
+def render_top_header(current_nav: str = "Inspector") -> str:
     """Renders the top navigation and brand ribbon HTML."""
-    return """
+    navs = ["Inspector", "Diagnostics", "Nodes", "Venues"]
+    links_html = ""
+    for n in navs:
+        if n == current_nav:
+            links_html += f'<a href="?nav={n}" target="_self" style="text-decoration: none; font-size: 13px; font-weight: 600; color: #3ba4f6; background: rgba(59, 164, 246, 0.1); padding: 4px 10px; border-radius: 6px;">{n}</a>'
+        else:
+            links_html += f'<a href="?nav={n}" target="_self" style="text-decoration: none; font-size: 13px; color: #64748b; padding: 4px 10px;">{n}</a>'
+
+    return f"""
     <div style="display: flex; align-items: center; justify-content: space-between;
                 padding: 12px 24px; background: #ffffff; border-bottom: 1px solid #e2e8f0;
                 margin: -4rem -4rem 1.5rem -4rem; position: sticky; top: 0; z-index: 100;">
@@ -341,12 +362,7 @@ def render_top_header() -> str:
                 </span>
             </div>
             <div style="display: flex; align-items: center; gap: 8px; margin-left: 16px;">
-                <span style="font-size: 13px; font-weight: 600; color: #3ba4f6;
-                             background: rgba(59, 164, 246, 0.1); padding: 4px 10px;
-                             border-radius: 6px;">Inspector</span>
-                <span style="font-size: 13px; color: #64748b; padding: 4px 10px;">Diagnostics</span>
-                <span style="font-size: 13px; color: #64748b; padding: 4px 10px;">Nodes</span>
-                <span style="font-size: 13px; color: #64748b; padding: 4px 10px;">Venues</span>
+                {links_html}
             </div>
         </div>
         <div style="display: flex; align-items: center; gap: 12px;">
@@ -579,7 +595,7 @@ def render_findings_tab(report: Report | None) -> None:
             continue
         filtered_findings.append(f)
 
-    st.markdown(
+    st_markdown(
         f"<div style='font-size: 12px; color: #64748b; margin-top: 4px; margin-bottom: 12px;'>"
         f"Showing <strong>{len(filtered_findings)}</strong> of {len(report.findings)} diagnostic findings"
         f"</div>",
@@ -605,7 +621,7 @@ def render_findings_tab(report: Report | None) -> None:
         is_fatal = sev_val == "fatal"
         with st.expander(expander_title, expanded=is_fatal):
             # Header info strip
-            st.markdown(
+            st_markdown(
                 f"""
                 <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
                             gap: 8px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid #f1f5f9;">
@@ -627,29 +643,29 @@ def render_findings_tab(report: Report | None) -> None:
             )
 
             # Detail text
-            st.markdown(f"<div style='font-size: 13px; color: #1e293b; margin-bottom: 8px;'>{f.detail}</div>", unsafe_allow_html=True)
+            st_markdown(f"<div style='font-size: 13px; color: #1e293b; margin-bottom: 8px;'>{f.detail}</div>", unsafe_allow_html=True)
 
             # Evidence block
             if f.evidence:
-                st.markdown(
+                st_markdown(
                     "<div style='font-size: 11px; font-weight: 600; text-transform: uppercase; "
                     "color: #64748b; font-family: JetBrains Mono; margin-top: 6px;'>Evidence</div>",
                     unsafe_allow_html=True,
                 )
-                st.markdown(f"<div class='dg-evidence-box'>{f.evidence}</div>", unsafe_allow_html=True)
+                st_markdown(f"<div class='dg-evidence-box'>{f.evidence}</div>", unsafe_allow_html=True)
 
             # Fix hint block
             if f.fix_hint:
-                st.markdown(
+                st_markdown(
                     "<div style='font-size: 11px; font-weight: 600; text-transform: uppercase; "
                     "color: #15803d; font-family: JetBrains Mono; margin-top: 6px;'>Recommended Fix</div>",
                     unsafe_allow_html=True,
                 )
-                st.markdown(f"<div class='dg-fix-box'>💡 {f.fix_hint}</div>", unsafe_allow_html=True)
+                st_markdown(f"<div class='dg-fix-box'>💡 {f.fix_hint}</div>", unsafe_allow_html=True)
 
             # Patch tag if available
             if f.patch_key:
-                st.markdown(
+                st_markdown(
                     f"<div style='display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; "
                     f"background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 4px; "
                     f"font-size: 11px; font-family: JetBrains Mono; font-weight: 600;'>"
@@ -713,7 +729,7 @@ def render_figures_tab(report: Report | None, pdf_bytes: bytes | None) -> None:
     elif filter_choice == "Clean":
         items = [item for item in items if not item["findings"]]
 
-    st.markdown(
+    st_markdown(
         f"<div style='font-size: 12px; color: #64748b; margin-bottom: 16px;'>"
         f"Inspecting <strong>{len(items)}</strong> figure structures across the manuscript"
         f"</div>",
@@ -744,7 +760,7 @@ def render_figures_tab(report: Report | None, pdf_bytes: bytes | None) -> None:
                     crop_img = extract_figure_crop(pdf_bytes, fig["page"], fig["bbox"])
 
                 with st.container():
-                    st.markdown(
+                    st_markdown(
                         f"""
                         <div class="dg-fig-card">
                             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
@@ -761,7 +777,7 @@ def render_figures_tab(report: Report | None, pdf_bytes: bytes | None) -> None:
                     if crop_img:
                         st.image(crop_img, use_container_width=True)
                     else:
-                        st.markdown(
+                        st_markdown(
                             "<div style='height: 100px; background: #f1f5f9; border: 1px dashed #cbd5e1; "
                             "border-radius: 4px; display: flex; align-items: center; justify-content: center; "
                             "color: #94a3b8; font-size: 12px;'>Figure Region Preview</div>",
@@ -776,9 +792,9 @@ def render_figures_tab(report: Report | None, pdf_bytes: bytes | None) -> None:
                             f"border-radius: 3px; margin: 2px;'>{f.code}</span>"
                             for f in fig["findings"]
                         ])
-                        st.markdown(f"<div style='margin-top: 8px;'>{tags_html}</div>", unsafe_allow_html=True)
+                        st_markdown(f"<div style='margin-top: 8px;'>{tags_html}</div>", unsafe_allow_html=True)
 
-                    st.markdown("</div>", unsafe_allow_html=True)
+                    st_markdown("</div>", unsafe_allow_html=True)
 
 
 def render_overlays_tab(report: Report | None, pdf_bytes: bytes | None) -> None:
@@ -797,7 +813,7 @@ def render_overlays_tab(report: Report | None, pdf_bytes: bytes | None) -> None:
         st.session_state.selected_page = first_fatal_page
 
     # Page Selector Strip
-    st.markdown(
+    st_markdown(
         "<div style='font-size: 11px; font-weight: 600; text-transform: uppercase; "
         "color: #64748b; font-family: JetBrains Mono; margin-bottom: 6px;'>Select Page to Inspect</div>",
         unsafe_allow_html=True,
@@ -842,7 +858,7 @@ def render_overlays_tab(report: Report | None, pdf_bytes: bytes | None) -> None:
         )
     with ctrl_col3:
         findings_on_page = [f for f in report.findings if f.page == sel_page]
-        st.markdown(
+        st_markdown(
             f"""
             <div style="padding-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #475569;">
                 Annotations on Page {sel_page}: <strong>{len(findings_on_page)}</strong>
@@ -872,7 +888,7 @@ def render_overlays_tab(report: Report | None, pdf_bytes: bytes | None) -> None:
         )
 
     with side_col:
-        st.markdown(
+        st_markdown(
             f"""
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700;
                         color: #0f172a; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #e2e8f0;">
@@ -883,7 +899,7 @@ def render_overlays_tab(report: Report | None, pdf_bytes: bytes | None) -> None:
         )
 
         if not findings_on_page:
-            st.markdown(
+            st_markdown(
                 "<div style='font-size: 13px; color: #10b981; padding: 12px; background: #d1fae5; "
                 "border-radius: 6px; border: 1px solid #a7f3d0;'>✓ No desk-reject flaws detected on this page.</div>",
                 unsafe_allow_html=True,
@@ -896,7 +912,7 @@ def render_overlays_tab(report: Report | None, pdf_bytes: bytes | None) -> None:
                 )
                 tag = f"#{f.number} " if f.number is not None else ""
 
-                st.markdown(
+                st_markdown(
                     f"""
                     <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px;
                                 padding: 10px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.02);">
@@ -940,7 +956,7 @@ def render_patches_tab(report: Report | None, tex_text: str | None, preset_id: s
     patch_findings = [f for f in report.findings if f.patch_key]
 
     # Patch summary ribbon
-    st.markdown(
+    st_markdown(
         f"""
         <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
                     background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px;
@@ -986,7 +1002,7 @@ def render_patches_tab(report: Report | None, tex_text: str | None, preset_id: s
     if patches:
         for idx, p in enumerate(patches, 1):
             with st.container():
-                st.markdown(
+                st_markdown(
                     f"""
                     <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px;
                                 padding: 14px; margin-top: 12px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
@@ -1002,14 +1018,14 @@ def render_patches_tab(report: Report | None, tex_text: str | None, preset_id: s
                     unsafe_allow_html=True,
                 )
                 st.code(p.diff, language="diff")
-                st.markdown("</div>", unsafe_allow_html=True)
+                st_markdown("</div>", unsafe_allow_html=True)
     else:
         for idx, pf in enumerate(patch_findings, 1):
             with st.expander(f"Patch #{idx}: [{pf.code}] {pf.title} (Template: `{pf.patch_key}`)", expanded=True):
-                st.markdown(f"**Description**: {pf.detail}")
+                st_markdown(f"**Description**: {pf.detail}")
                 if pf.fix_hint:
-                    st.markdown(f"**Recommended Change**: `{pf.fix_hint}`")
-                st.markdown(f"**Target Patch Template**: `{pf.patch_key}`")
+                    st_markdown(f"**Recommended Change**: `{pf.fix_hint}`")
+                st_markdown(f"**Target Patch Template**: `{pf.patch_key}`")
 
 
 def render_run_log_tab(report: Report | None) -> None:
@@ -1037,7 +1053,7 @@ def render_run_log_tab(report: Report | None) -> None:
         st.metric(label="Offline Guarantee", value="100% Local", delta="0 ext reqs")
 
     # Pipeline Execution Timeline Swimlanes
-    st.markdown(
+    st_markdown(
         """
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700;
                     color: #0f172a; margin-top: 16px; margin-bottom: 8px;">
@@ -1060,7 +1076,7 @@ def render_run_log_tab(report: Report | None) -> None:
             continue
         pct = max(5, int((dur / total_time) * 100))
         color = stage_colors.get(stage, "#64748b")
-        st.markdown(
+        st_markdown(
             f"""
             <div style="margin-bottom: 6px;">
                 <div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace;
@@ -1077,7 +1093,7 @@ def render_run_log_tab(report: Report | None) -> None:
         )
 
     # Multi-Node Worker Cluster Status Table
-    st.markdown(
+    st_markdown(
         """
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700;
                     color: #0f172a; margin-top: 20px; margin-bottom: 8px;">
@@ -1115,7 +1131,7 @@ def render_run_log_tab(report: Report | None) -> None:
 
     st.dataframe(node_rows, use_container_width=True, hide_index=True)
 
-    st.markdown(
+    st_markdown(
         f"""
         <div style="margin-top: 14px; padding: 10px 14px; background: #f0fdf4; border: 1px solid #bbf7d0;
                     border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #166534;">
