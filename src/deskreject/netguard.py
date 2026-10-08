@@ -11,7 +11,7 @@ _blocked_requests = 0
 def blocked_count() -> int:
     return _blocked_requests
 
-def make_client(settings) -> httpx.Client:
+def make_client(settings, timeout=None, **kwargs) -> httpx.Client:
     allowed_hosts = [urlparse(ep.url).netloc for ep in settings.ollama_vision_endpoints]
 
     def check_host(request: httpx.Request):
@@ -24,5 +24,11 @@ def make_client(settings) -> httpx.Client:
             _blocked_requests += 1
             raise BlockedHost(f"Blocked request to {request.url}")
 
-    client = httpx.Client(event_hooks={"request": [check_host]})
+    event_hooks = kwargs.pop("event_hooks", {})
+    if "request" in event_hooks:
+        event_hooks["request"].insert(0, check_host)
+    else:
+        event_hooks["request"] = [check_host]
+
+    client = httpx.Client(timeout=timeout, event_hooks=event_hooks, **kwargs)
     return client
