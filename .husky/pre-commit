@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+# DeskReject Guard – pre-commit verify gate
+# Runs ruff lint + pytest before every commit.
+# To skip in emergencies: git commit --no-verify
+
+echo "🔍 Running pre-commit verify gate..."
+
+# Run ruff check
+python -m ruff check .
+if [ $? -ne 0 ]; then
+  echo "❌ ruff check failed. Fix lint errors before committing."
+  exit 1
+fi
+
+# Run pytest
+python -m pytest -q
+if [ $? -ne 0 ]; then
+  echo "❌ pytest failed. Fix test failures before committing."
+  exit 1
+fi
+
+echo "✅ All checks passed!"

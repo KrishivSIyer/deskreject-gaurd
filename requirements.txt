@@ -1,0 +1,11 @@
+pymupdf
+pydantic>=2
+pyyaml
+streamlit
+httpx
+pillow
+numpy
+python-dotenv
+pytest
+ruff
+matplotlib        # sample generation only
