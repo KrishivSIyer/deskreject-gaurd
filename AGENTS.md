@@ -386,11 +386,11 @@ When asked to prepare the project for submission, prioritize correctness, reprod
   - [ ] T1.5 Mentions and sequencing (B, P0)
   - [ ] T1.6 Statements sweeper (B, P0)
   - [ ] T1.7 Vision client, pool and cache (C, P0)
-  - [ ] T1.8 UI skeleton (D, P0)
+  - [x] T1.8 UI skeleton (D, P0)
 - M2
   - [ ] T2.1 Figure to caption parity (B, P0)
   - [ ] T2.2 Anonymity on images with Gemma 4 (C, P0)
-  - [ ] T2.3 Overlays (D, P0)
+  - [x] T2.3 Overlays (D, P0)
   - [ ] T2.4 Dashboard polish and run log (D, P0)
   - [ ] T2.5 Worker fan-out (C, P0)
   - [ ] T2.6 Real-PDF smoke test (A, P0)

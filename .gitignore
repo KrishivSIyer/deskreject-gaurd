@@ -39,3 +39,6 @@ htmlcov/
 
 # Ruff
 .ruff_cache/
+
+#specific file
+stitch_integration_plan.md

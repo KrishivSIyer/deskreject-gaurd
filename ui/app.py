@@ -11,6 +11,9 @@ from ui.components import (
     cluster_telemetry_html,
     get_global_css,
     offline_badge_html,
+    render_figures_tab,
+    render_findings_tab,
+    render_overlays_tab,
     render_telemetry_bar,
     render_top_header,
 )
@@ -39,6 +42,8 @@ if "preset_id" not in st.session_state:
     st.session_state.preset_id = settings.default_preset
 if "bypass_cache" not in st.session_state:
     st.session_state.bypass_cache = False
+if "selected_page" not in st.session_state:
+    st.session_state.selected_page = 1
 
 # Discover available presets
 presets_dir = Path(__file__).resolve().parent.parent / "presets"
@@ -84,9 +89,9 @@ with st.sidebar:
     # Load preset details to show anonymity status badge
     try:
         current_preset = load_preset(selected_preset)
-        anon_label = "Anonymity: ON" if current_preset.rules.blind_authors else "Anonymity: OFF"
+        anon_label = "Anonymity: ON" if current_preset.anonymous else "Anonymity: OFF"
         badge_class = (
-            "dg-badge-success" if current_preset.rules.blind_authors else "dg-badge-neutral"
+            "dg-badge-success" if current_preset.anonymous else "dg-badge-neutral"
         )
     except (OSError, ValueError, KeyError):
         anon_label = "Anonymity: ON"
@@ -96,7 +101,7 @@ with st.sidebar:
         f"""
         <div style="display: flex; align-items: center; justify-content: space-between;
                     margin-top: 4px; margin-bottom: 14px;">
-            <span style="font-size: 11px; color: #64748b;">Editable approximate preset</span>
+            <span style="font-size: 11px; color: #64748b;">Editable venue rule preset</span>
             <span class="dg-badge {badge_class}">{anon_label}</span>
         </div>
         """,
@@ -136,8 +141,9 @@ with st.sidebar:
     )
     st.session_state.bypass_cache = bypass_cache
 
-    # Cluster Telemetry
-    st.markdown(cluster_telemetry_html(), unsafe_allow_html=True)
+    # Dynamic Cluster Telemetry
+    vision_stats = st.session_state.report.vision_stats if st.session_state.report else None
+    st.markdown(cluster_telemetry_html(vision_stats=vision_stats), unsafe_allow_html=True)
 
     # Action Buttons
     col1, col2 = st.columns([1, 1])
@@ -165,6 +171,7 @@ if load_sample_clicked:
     if sample_pdf_path.exists():
         st.session_state.pdf_bytes = sample_pdf_path.read_bytes()
         st.session_state.pdf_name = "bad_paper.pdf"
+        st.session_state.selected_page = 1
         if sample_tex_path.exists():
             st.session_state.tex_text = sample_tex_path.read_text(encoding="utf-8")
 
@@ -194,12 +201,13 @@ if run_audit_clicked:
                     tex_text=st.session_state.tex_text,
                     use_cache=not st.session_state.bypass_cache,
                 )
+                st.session_state.selected_page = 1
         finally:
             if os.path.exists(tmp_path):
                 os.remove(tmp_path)
         st.rerun()
     else:
-        st.warning("Please upload a PDF manuscript or load the sample paper first.")
+        st.warning("Please upload a PDF manuscript or click 'Load sample' to run an audit.")
 
 # Main Workspace Content
 report = st.session_state.report
@@ -207,7 +215,8 @@ report = st.session_state.report
 if report:
     fatal_count = report.counts.get("fatal", 0)
     warn_count = report.counts.get("warning", 0)
-    filename = st.session_state.pdf_name or "manuscript.pdf"
+    risk_score = max(0, min(100, int(fatal_count * 15 + warn_count * 5))) if fatal_count or warn_count else 0
+    filename = st.session_state.pdf_name or report.file_name or "manuscript.pdf"
 
     # Telemetry and summary ribbon
     summary_col, export_col = st.columns([4, 1])
@@ -215,8 +224,8 @@ if report:
         st.markdown(
             render_telemetry_bar(
                 filename=filename,
-                risk=report.desk_reject_risk.value,
-                score=report.desk_reject_risk_score,
+                risk=report.risk,
+                score=risk_score,
                 fatal_count=fatal_count,
                 warn_count=warn_count,
                 page_count=report.page_count,
@@ -232,27 +241,52 @@ if report:
             use_container_width=True,
         )
 
-# Navigation Tabs (Phase 1 Shell)
+# Navigation Tabs (Phase 2 Live Wire)
 tab_overlays, tab_findings, tab_figures, tab_patches, tab_run_log = st.tabs(
     ["Page overlays", "Findings", "Figures", "LaTeX Patches", "Run Log"]
 )
 
 with tab_overlays:
-    st.markdown("### Page Overlays")
-    st.info("Phase 1 Shell Active — Page overlay viewer and flaw bounding boxes coming in Phase 2.")
+    render_overlays_tab(report, st.session_state.pdf_bytes)
 
 with tab_findings:
-    st.markdown("### High-Risk Findings")
-    st.info("Phase 1 Shell Active — Diagnostic findings table with inline evidence coming in Phase 2.")
+    render_findings_tab(report)
 
 with tab_figures:
-    st.markdown("### Figures & Panels")
-    st.info("Phase 1 Shell Active — Figure card grid and sub-panel crops coming in Phase 2.")
+    render_figures_tab(report, st.session_state.pdf_bytes)
 
 with tab_patches:
     st.markdown("### LaTeX Patches")
-    st.info("Phase 1 Shell Active — Interactive LaTeX diff patches coming in Phase 2.")
+    if not report:
+        st.info("Run an audit with optional .tex source to view and apply precision fixes.")
+    elif report.patches:
+        st.markdown(f"**{len(report.patches)} precision patches generated:**")
+        for p in report.patches:
+            with st.expander(f"Patch: {p.title} ({p.key})"):
+                st.code(p.diff, language="diff")
+    else:
+        patch_findings = [f for f in report.findings if f.patch_key]
+        if patch_findings:
+            st.markdown(f"**{len(patch_findings)} findings have automated patch templates ready:**")
+            for pf in patch_findings:
+                st.markdown(f"- **[{pf.code}]** {pf.title} (Patch template: `{pf.patch_key}`)")
+        else:
+            st.info("No LaTeX patches required for the reported findings.")
 
 with tab_run_log:
-    st.markdown("### Run Log & Multi-Node Execution")
-    st.info("Phase 1 Shell Active — Detailed timing telemetry and node trace coming in Phase 2.")
+    st.markdown("### Execution & Telemetry Log")
+    if not report:
+        st.info("Audit execution log and multi-node worker traces will appear here.")
+    else:
+        t_col1, t_col2 = st.columns(2)
+        with t_col1:
+            st.markdown("#### Pipeline Stage Timings")
+            for stage, dur in report.timings.items():
+                st.markdown(f"- **{stage.capitalize()}**: `{dur:.3f}s`")
+        with t_col2:
+            st.markdown("#### Vision Inference Telemetry")
+            v_stats = report.vision_stats
+            st.markdown(f"- **Total Vision Calls**: `{v_stats.get('calls', 0)}`")
+            st.markdown(f"- **Cache Hits**: `{v_stats.get('cache_hits', 0)}`")
+            st.markdown(f"- **Failures**: `{v_stats.get('failures', 0)}`")
+            st.markdown(f"- **External Requests Blocked**: `{report.external_requests_blocked}` (100% offline)")
