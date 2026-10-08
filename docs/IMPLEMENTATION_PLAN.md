@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Status | v1, 2026-10-08 |
-| Team | Four developers (lanes A to D), each working with Antigravity agents |
+| Team | Four developers: Lane A (Sibi Chakravarthi), Lane B (Karthik MG), Lane C (Krishiv S Iyer), Lane D (Aditya Vineeth), each working with Antigravity agents |
 | Deadline | Hack Day submission closes 4:30 PM. **Feature freeze 3:15 PM. Submit by 4:10 PM.** |
 | Related | [`deskreject_guard_product_specification.md`](deskreject_guard_product_specification.md), [`../AGENTS.md`](../AGENTS.md) (text to paste is in §8) |
 
@@ -41,7 +41,8 @@
 ```
 You are working on DeskReject Guard. Read AGENTS.md and docs/IMPLEMENTATION_PLAN.md sections 3 and 4.
 Implement task <ID> exactly as written below. Touch only the files listed under "Touches".
-Run `pytest -q` and `ruff check .` before committing. Commit message: "<ID>: <short summary>".
+Run all commands, tests, and linters strictly inside `.venv` (`.venv\Scripts\pytest -q` and `.venv\Scripts\ruff check .`).
+Commit message: "<ID>: <short summary>".
 <paste the task body here>
 ```
 

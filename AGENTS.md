@@ -14,7 +14,7 @@ Read this file before making changes to the repository.
 2. Read `docs/PRD.md` (what we build) and `docs/IMPLEMENTATION_PLAN.md` sections 3 and 4 (architecture, contracts, finding codes).
 3. You will be given one task ID (for example `T1.4`). Find its full text in `docs/IMPLEMENTATION_PLAN.md` section 6. Do exactly that task.
 4. Touch only the files listed under the task's **Touches**.
-5. Run `pytest -q` and `ruff check .`. Both must pass.
+5. Run `.venv\Scripts\pytest -q` (or inside activated `.venv`) and `ruff check .`. Both must pass. All execution MUST occur exclusively inside `.venv`.
 6. Commit with the message `T<id>: <short summary>`, then `git pull --rebase` and push.
 7. Report what changed and what you verified (section 24).
 
@@ -364,13 +364,17 @@ When asked to prepare the project for submission, prioritize correctness, reprod
 | M3 P1 extras and eval | Legibility, patches, colorblind previews, eval script | P1 flaws found; diffs generated for `bad_paper.tex`; eval table prints |
 | M4 Freeze and submit | README, demo, backup recording, submission | Public repo, license, README, demo runs twice, submitted |
 
-**Lanes.** A: pipeline, parser, eval, submission. B: text checks and patches. C: vision, workers, geometry and color checks. D: samples, UI, docs, demo.
+**Lanes.**
+- **Lane A:** Sibi Chakravarthi (pipeline, parser, eval, submission)
+- **Lane B:** Karthik MG (text checks and patches)
+- **Lane C:** Krishiv S Iyer (vision, workers, geometry and color checks)
+- **Lane D:** Aditya Vineeth (samples, UI, docs, demo)
 
 **Task index.** Full task bodies are in `docs/IMPLEMENTATION_PLAN.md` section 6. Tick your task in the same commit that finishes it. If a rebase conflicts on this list, keep every tick from both sides.
 
 - M0
   - [ ] T0.1 Scaffold the repo (A, P0)
-  - [ ] T0.2 Models and endpoints check (C, P0)
+  - [x] T0.2 Models and endpoints check (C, P0)
   - [ ] T0.3 Contracts and presets (A, P0) **push first, everyone depends on it**
   - [ ] T0.4 Synthetic papers (D, P0)
   - [ ] T0.5 Pipeline shell, CLI and netguard (A, P0)
@@ -541,9 +545,10 @@ Anonymity checks (text and vision) return `[]` when `preset.anonymous` is false.
 PowerShell (Windows):
 
 ```powershell
+# ALL development, scripts, linters, and tests MUST run exclusively inside .venv
 python -m venv .venv
 .venv\Scripts\Activate.ps1
-pip install -r requirements.txt
+pip install -r requirements.txt  # or install required dependencies into .venv
 copy .env.example .env
 ```
 
